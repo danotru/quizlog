@@ -1,0 +1,17 @@
+.ql-practice-question {
+  @apply bg-secondary-500
+  outline outline-2 outline-secondary-300 rounded-[2rem];
+}
+
+.ql-practice-question__heading {
+  @apply text-primary-700;
+}
+
+.ql-practice-question__content {
+  @apply flex flex-col gap-4
+  p-6;
+}
+
+.ql-practice-question__text {
+  @apply mb-1;
+}

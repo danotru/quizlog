@@ -1,0 +1,15 @@
+.ql-quiz-actions {
+  @apply flex justify-between;
+}
+
+.ql-quiz-actions__side {
+  @apply flex gap-4;
+}
+
+.ql-quiz-actions__action {
+  @apply flex items-center justify-center
+    h-11 w-11
+    outline outline-2 outline-secondary-400 rounded-xl
+    transition-all
+      hover:outline-secondary-300;
+}

@@ -1,0 +1,18 @@
+.ql-navbar {
+  @apply sticky bottom-0 z-20
+  flex items-center justify-around
+  py-3
+  bg-secondary-600
+  border-t-2 border-secondary-400
+    md:hidden;
+}
+
+.ql-navbar__link {
+  @apply text-primary-500
+  transition-colors
+    disabled:text-secondary-300;
+}
+
+.ql-navbar__link--active {
+  @apply text-accent-500;
+}

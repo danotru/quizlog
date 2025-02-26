@@ -1,0 +1,26 @@
+.ql-mode-tabs {
+  @apply relative
+  flex
+  bg-secondary-500
+  outline outline-2 outline-secondary-300 rounded-3xl
+  p-2;
+}
+
+.ql-mode-tabs__tab {
+  @apply relative z-10
+  flex items-center justify-center grow basis-0
+  h-11 p-2
+  transition-colors;
+}
+
+.ql-mode-tabs__tab--active {
+  @apply text-primary-300;
+}
+
+.ql-mode-tabs__active-tab {
+  @apply absolute
+  h-11
+  bg-accent-500
+  outline outline-2 outline-accent-400 rounded-2xl
+  ease-out transition-all duration-300;
+}
