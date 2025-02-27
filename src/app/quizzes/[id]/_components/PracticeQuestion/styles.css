@@ -7,11 +7,79 @@
   @apply text-primary-700;
 }
 
-.ql-practice-question__content {
-  @apply flex flex-col gap-4
+.ql-practice-question__content,
+.ql-practice-question__hint-container {
+  @apply flex flex-col gap-5
   p-6;
 }
 
+.ql-practice-question__hint-container {
+  @apply border-t-2 border-secondary-400;
+}
+
 .ql-practice-question__text {
-  @apply mb-1;
+  @apply text-xl mb-1;
+}
+
+.ql-practice-question__answers {
+  @apply flex flex-col gap-4;
+}
+
+.ql-practice-question__answer {
+  @apply flex items-center gap-3
+  h-11 p-3
+  outline outline-2 outline-secondary-300 rounded-xl
+  cursor-pointer
+  transition-all;
+}
+
+.ql-practice-question__answer--correct.ql-practice-question__answer {
+  @apply bg-success-700
+  outline outline-2 outline-success-500;
+}
+
+.ql-practice-question__answer--incorrect.ql-practice-question__answer {
+  @apply bg-error-700
+  outline outline-2 outline-error-500;
+}
+
+.ql-practice-question__answer-icon {
+  @apply absolute h-3 w-3 z-10;
+}
+
+.ql-practice-question__answer--correct .ql-practice-question__answer-icon {
+  @apply text-success-700;
+}
+
+.ql-practice-question__answer--incorrect .ql-practice-question__answer-icon {
+  @apply text-error-700;
+}
+
+.ql-practice-question__answer--correct .ql-radio .ql-radio__border {
+  @apply bg-success-700
+  outline-success-500;
+}
+
+.ql-practice-question__answer--correct .ql-radio__checkmark {
+  @apply bg-success-500
+  opacity-100;
+}
+
+.ql-practice-question__answer--incorrect .ql-radio .ql-radio__border {
+  @apply bg-error-700
+  outline-error-500;
+}
+
+.ql-practice-question__answer--incorrect .ql-radio__checkmark {
+  @apply bg-error-500
+  opacity-100;
+}
+
+.ql-practice-question__answer-text {
+  @apply transition-colors;
+}
+
+.ql-practice-question__answer--correct .ql-practice-question__answer-text,
+.ql-practice-question__answer--incorrect .ql-practice-question__answer-text {
+  @apply text-primary-300;
 }

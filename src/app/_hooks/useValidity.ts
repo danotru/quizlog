@@ -27,6 +27,8 @@ export default function useValidity<T>(
 
     const parsedValue = schema.safeParse(value);
 
+    console.log(parsedValue);
+
     parsedValue.success
       ? setMessage(undefined)
       : setMessage(parsedValue.error.issues[0]?.message ?? "");

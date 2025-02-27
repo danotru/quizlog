@@ -5,6 +5,7 @@ import { answersTable, questionsTable } from "@/lib/db/schemas";
 import "./styles.css";
 import { useState } from "react";
 import MultipleChoiceAnswers from "@/app/quizzes/[id]/_components/PracticeQuestion/components/MultipleChoiceAnswers";
+import { IconQuestionMark } from "@tabler/icons-react";
 
 /**
  * Props for {@link PracticeQuestion}
@@ -24,16 +25,33 @@ export default function PracticeQuestion(props: PracticeQuestionProps) {
   return (
     <>
       <article className={"ql-practice-question"}>
-        <div className={"ql-practice-question__content"}>
-          <h2 className={"ql-practice-question__heading"}>Question Text</h2>
+        <form
+          className={"ql-practice-question__content"}
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            setIsSubmitted(!isSubmitted);
+          }}
+        >
           <div className={"ql-practice-question__text"}>
             {props.question.text}
           </div>
-          <h2 className={"ql-practice-question__heading"}>Answers</h2>
           {props.question.type === "multiple_choice" && (
-            <MultipleChoiceAnswers answers={props.question.answers} />
+            <MultipleChoiceAnswers
+              questionId={props.question.id}
+              answers={props.question.answers}
+              isSubmitted={isSubmitted}
+            />
           )}
-        </div>
+        </form>
+        {props.question.hint && (
+          <div className={"ql-practice-question__hint-container"}>
+            <button className={"ql-button ql-button--secondary"}>
+              <IconQuestionMark className={"ql-button__icon"} />
+              Give me a hint
+            </button>
+          </div>
+        )}
       </article>
     </>
   );

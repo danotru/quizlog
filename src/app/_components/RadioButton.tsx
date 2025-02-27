@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
 import useFocused from "@/app/_hooks/useFocused";
 import { ZodType } from "zod";
 import useValidity from "@/app/_hooks/useValidity";
@@ -10,6 +10,7 @@ import useValidity from "@/app/_hooks/useValidity";
  */
 interface RadioButtonProps<T> {
   className?: string;
+  children?: ReactNode;
   name: string;
   value: string;
   validationValue?: T;
@@ -65,6 +66,7 @@ export default function RadioButton<T>(props: RadioButtonProps<T>) {
         <div
           className={"ql-radio__checkmark opacity-0 peer-checked:opacity-100"}
         ></div>
+        {props.children}
       </label>
     </>
   );

@@ -101,6 +101,7 @@ export const questionsTable = pgTable("questions", {
   text: text("text").notNull(),
   type: questionTypeEnum(),
   explanation: text("explanation"),
+  hint: text("hint"),
   quizId: uuid("quiz_id")
     .references(() => quizzesTable.id)
     .notNull(),
