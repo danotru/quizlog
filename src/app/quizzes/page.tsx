@@ -1,5 +1,3 @@
-"use server";
-
 import { db } from "@/lib/db/client";
 import {
   profilesTable,
@@ -11,6 +9,14 @@ import { desc, eq, sql } from "drizzle-orm";
 import { createClient } from "@/lib/auth/server";
 import QuizCard from "@/app/_components/QuizCard";
 import "./styles.css";
+import { Metadata } from "next";
+
+/**
+ * Quizzes page metadata
+ */
+export const metadata: Metadata = {
+  title: "Quizlog: Quizzes",
+};
 
 /**
  * Quizzes page

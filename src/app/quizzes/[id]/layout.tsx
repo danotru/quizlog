@@ -15,6 +15,7 @@ import QuizCard from "@/app/_components/QuizCard";
 import ModeTabs from "@/app/quizzes/[id]/_components/ModeTabs";
 import QuizContextProvider from "@/app/quizzes/[id]/_components/QuizContextProvider";
 import "./styles.css";
+import { Metadata } from "next";
 
 /**
  * Props for {@link QuizDetailsLayout}
@@ -22,6 +23,22 @@ import "./styles.css";
 interface QuizDetailsLayoutProps {
   children?: ReactNode;
   params: Promise<{ id: string }>;
+}
+
+/**
+ * To generate take quiz layout metadata
+ * @param props take quiz layout props
+ */
+export async function generateMetadata(
+  props: QuizDetailsLayoutProps,
+): Promise<Metadata> {
+  const { id } = await props.params;
+
+  const quiz = await db.query.quizzesTable.findFirst({
+    where: eq(quizzesTable.id, id),
+  });
+
+  return { title: `Quizlog: Take '${quiz?.name}' Quiz` };
 }
 
 /**
@@ -34,32 +51,39 @@ export default async function QuizDetailsLayout(props: QuizDetailsLayoutProps) {
 
   if (error || !data) return null;
 
-  const quizDetails = (
-    await db
-      .select({
-        ...getTableColumns(quizzesTable),
-        username: profilesTable.username,
-        profileId: profilesTable.id,
-        questionsCount: sql<number>`COUNT(${questionsTable.id})`,
-        questionsTypes: sql<
-          (typeof questionTypeEnum.enumValues)[number][]
-        >`ARRAY_AGG(DISTINCT ${questionsTable.type})`,
-      })
-      .from(quizzesTable)
-      .where(eq(quizzesTable.id, params.id))
-      .leftJoin(questionsTable, eq(quizzesTable.id, questionsTable.quizId))
-      .innerJoin(profilesTable, eq(quizzesTable.userId, profilesTable.userId))
-      .orderBy(desc(quizzesTable.createdAt))
-      .groupBy(quizzesTable.id, profilesTable.username, profilesTable.id)
-  )[0];
-  const quiz = await db.query.quizzesTable.findFirst({
-    where: eq(quizzesTable.id, params.id),
-    with: {
-      questions: {
-        with: { answers: true },
+  let quiz, quizDetails;
+
+  try {
+    quizDetails = (
+      await db
+        .select({
+          ...getTableColumns(quizzesTable),
+          username: profilesTable.username,
+          profileId: profilesTable.id,
+          questionsCount: sql<number>`COUNT(${questionsTable.id})`,
+          questionsTypes: sql<
+            (typeof questionTypeEnum.enumValues)[number][]
+          >`ARRAY_AGG(DISTINCT ${questionsTable.type})`,
+        })
+        .from(quizzesTable)
+        .where(eq(quizzesTable.id, params.id))
+        .leftJoin(questionsTable, eq(quizzesTable.id, questionsTable.quizId))
+        .innerJoin(profilesTable, eq(quizzesTable.userId, profilesTable.userId))
+        .orderBy(desc(quizzesTable.createdAt))
+        .groupBy(quizzesTable.id, profilesTable.username, profilesTable.id)
+    )[0];
+
+    quiz = await db.query.quizzesTable.findFirst({
+      where: eq(quizzesTable.id, params.id),
+      with: {
+        questions: {
+          with: { answers: true },
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    redirect("/");
+  }
 
   if (!quizDetails || !quiz) {
     redirect("/");

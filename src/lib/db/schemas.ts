@@ -33,7 +33,7 @@ export const userRelations = relations(usersTable, ({ one }) => ({
  */
 export const profilesTable = pgTable("profiles", {
   id: uuid("id").primaryKey().defaultRandom(),
-  username: text("username").notNull(),
+  username: text("username").unique().notNull(),
   userId: uuid("user_id")
     .references(() => usersTable.id)
     .notNull(),

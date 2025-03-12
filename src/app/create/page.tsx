@@ -1,6 +1,12 @@
-"use server";
-
 import CreateQuizForm from "@/app/create/_components/CreateQuizForm";
+import { Metadata } from "next";
+
+/**
+ * Root page metadata
+ */
+export const metadata: Metadata = {
+  title: "Quizlog: Create",
+};
 
 /**
  * Page for creating quizzes

@@ -1,5 +1,3 @@
-"use server";
-
 import { createClient } from "@/lib/auth/server";
 import { db } from "@/lib/db/client";
 import { and, desc, eq, sql } from "drizzle-orm";
@@ -11,12 +9,30 @@ import {
 } from "@/lib/db/schemas";
 import QuizCard from "@/app/_components/QuizCard";
 import "./styles.css";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 /**
  * Props for {@link ProfilePage}
  */
 interface ProfilePageProps {
   params: Promise<{ id: string }>;
+}
+
+/**
+ * To generate profile page metadata
+ * @param props profile page props
+ */
+export async function generateMetadata(
+  props: ProfilePageProps,
+): Promise<Metadata> {
+  const { id } = await props.params;
+
+  const profile = await db.query.profilesTable.findFirst({
+    where: eq(profilesTable.userId, id),
+  });
+
+  return { title: `Quizlog: '${profile?.username}' Profile` };
 }
 
 /**
@@ -27,43 +43,55 @@ export default async function ProfilePage(props: ProfilePageProps) {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
 
-  if (error || !data) return null;
+  if (error || !data) redirect("/");
 
-  const profile = await db.query.profilesTable.findFirst({
-    where: eq(profilesTable.userId, params.id),
-  });
+  let profile;
 
-  if (!profile) return null;
+  try {
+    profile = await db.query.profilesTable.findFirst({
+      where: eq(profilesTable.userId, params.id),
+    });
+  } catch (e) {
+    redirect("/");
+  }
 
-  const quizzes = await db
-    .select({
-      id: quizzesTable.id,
-      name: quizzesTable.name,
-      bannerUrl: quizzesTable.bannerUrl,
-      createdAt: quizzesTable.createdAt,
-      description: quizzesTable.description,
-      privacy: quizzesTable.privacy,
-      userId: quizzesTable.userId,
-      username: profilesTable.username,
-      profileId: profilesTable.id,
-      questionsCount: sql<number>`COUNT(${questionsTable.id})`,
-      questionsTypes: sql<
-        (typeof questionTypeEnum.enumValues)[number][]
-      >`ARRAY_AGG(DISTINCT ${questionsTable.type})`,
-    })
-    .from(quizzesTable)
-    .where(
-      and(
-        eq(quizzesTable.userId, profile.userId),
-        profile.userId !== data.user?.id
-          ? eq(quizzesTable.privacy, "public")
-          : undefined,
-      ),
-    )
-    .leftJoin(questionsTable, eq(quizzesTable.id, questionsTable.quizId))
-    .innerJoin(profilesTable, eq(quizzesTable.userId, profilesTable.userId))
-    .orderBy(desc(quizzesTable.createdAt))
-    .groupBy(quizzesTable.id, profilesTable.username, profilesTable.id);
+  if (!profile) redirect("/");
+
+  let quizzes = [];
+
+  try {
+    quizzes = await db
+      .select({
+        id: quizzesTable.id,
+        name: quizzesTable.name,
+        bannerUrl: quizzesTable.bannerUrl,
+        createdAt: quizzesTable.createdAt,
+        description: quizzesTable.description,
+        privacy: quizzesTable.privacy,
+        userId: quizzesTable.userId,
+        username: profilesTable.username,
+        profileId: profilesTable.id,
+        questionsCount: sql<number>`COUNT(${questionsTable.id})`,
+        questionsTypes: sql<
+          (typeof questionTypeEnum.enumValues)[number][]
+        >`ARRAY_AGG(DISTINCT ${questionsTable.type})`,
+      })
+      .from(quizzesTable)
+      .where(
+        and(
+          eq(quizzesTable.userId, profile.userId),
+          profile.userId !== data.user?.id
+            ? eq(quizzesTable.privacy, "public")
+            : undefined,
+        ),
+      )
+      .leftJoin(questionsTable, eq(quizzesTable.id, questionsTable.quizId))
+      .innerJoin(profilesTable, eq(quizzesTable.userId, profilesTable.userId))
+      .orderBy(desc(quizzesTable.createdAt))
+      .groupBy(quizzesTable.id, profilesTable.username, profilesTable.id);
+  } catch (e) {
+    redirect("/");
+  }
 
   return (
     <>

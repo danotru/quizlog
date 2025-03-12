@@ -5,7 +5,6 @@ import { formDataToObject } from "@/app/_utils/form-utils";
 import { db } from "@/lib/db/client";
 import { createClient } from "@/lib/auth/server";
 import { answersTable, questionsTable, quizzesTable } from "@/lib/db/schemas";
-import { DrizzleError } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -34,6 +33,10 @@ export async function createQuiz(
   let quizId;
 
   try {
+    if (questions.length < 1) {
+      return { message: "There must be at least one question" };
+    }
+
     quizId = await db.transaction(async (tx) => {
       const insertedQuizzes = await tx
         .insert(quizzesTable)
@@ -63,6 +66,11 @@ export async function createQuiz(
           return;
         }
 
+        if (question.answers.length < 1) {
+          tx.rollback();
+          return;
+        }
+
         for (const answer of question.answers) {
           const { text, isCorrect } = answer;
           const insertedAnswersCount = (
@@ -86,11 +94,9 @@ export async function createQuiz(
       return insertedQuizzes[0].id;
     });
   } catch (error) {
-    if (error instanceof DrizzleError) {
-      return {
-        message: "An error occurred while creating quiz, please try again...",
-      };
-    }
+    return {
+      message: "An error occurred while creating quiz, please try again...",
+    };
   }
 
   if (quizId) {

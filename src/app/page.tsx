@@ -7,6 +7,14 @@ import {
 } from "@/lib/db/schemas";
 import { eq, sql } from "drizzle-orm";
 import QuizCard from "@/app/_components/QuizCard";
+import { Metadata } from "next";
+
+/**
+ * Root page metadata
+ */
+export const metadata: Metadata = {
+  title: "Quizlog: Home",
+};
 
 /**
  * Root page

@@ -6,15 +6,24 @@ import { RefObject, useEffect, useState } from "react";
  * Hook for whenever element is focused
  * @param ref reference to the element
  */
-export default function useFocused(ref: RefObject<HTMLElement>) {
+export default function useFocused(
+  ref: RefObject<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
+  >,
+) {
   const [isFocused, setIsFocused] = useState(false);
   const [wasFocused, setWasFocused] = useState(false);
 
   useEffect(() => {
-    const handleFocus = (e: FocusEvent) => {
+    const element = ref.current;
+
+    const handleFocus = (e: Event) => {
       setIsFocused(true);
 
-      if ((e.relatedTarget as HTMLButtonElement)?.type === "submit") {
+      if (
+        ((e as FocusEvent).relatedTarget as HTMLButtonElement)?.type ===
+        "submit"
+      ) {
         setWasFocused(true);
       }
     };
@@ -24,18 +33,18 @@ export default function useFocused(ref: RefObject<HTMLElement>) {
       setWasFocused(true);
     };
 
-    if (ref.current) {
-      ref.current.addEventListener("focus", handleFocus);
-      ref.current.addEventListener("blur", handleBlur);
+    if (element) {
+      element.addEventListener("focus", handleFocus);
+      element.addEventListener("blur", handleBlur);
     }
 
     return () => {
-      if (ref.current) {
-        ref.current.removeEventListener("focus", handleFocus);
-        ref.current.removeEventListener("blur", handleBlur);
+      if (element) {
+        element.removeEventListener("focus", handleFocus);
+        element.removeEventListener("blur", handleBlur);
       }
     };
-  }, []);
+  }, [ref]);
 
   return { isFocused, wasFocused, setIsFocused, setWasFocused };
 }
