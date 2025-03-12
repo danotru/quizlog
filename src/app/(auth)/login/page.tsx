@@ -35,7 +35,9 @@ export default async function LoginPage() {
         }
         otherPageNode={
           <div className={"font-semibold"}>
-            <span className={"text-primary-700"}>Don't have an account? </span>
+            <span className={"text-primary-700"}>
+              Don&apos;t have an account?{" "}
+            </span>
             <Link
               className={"hover:text-primary-600 transition-colors"}
               href={"/register"}

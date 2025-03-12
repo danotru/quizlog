@@ -1,6 +1,5 @@
 "use server";
 
-import { ReactNode } from "react";
 import QuizlogLogo from "@/app/_components/QuizlogLogo";
 import { createClient } from "@/lib/auth/server";
 import Link from "next/link";

@@ -70,7 +70,7 @@ export default function QuizPracticePage() {
     );
     setReset(!reset);
     setStartTime(moment());
-  }, [questions, reset, showAnswers]);
+  }, [questions, reset]);
 
   useEffect(() => {
     if (isLoaded.current) return;
