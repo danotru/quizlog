@@ -21,7 +21,7 @@ export default async function ProfileDropdown(props: ProfileDropdownProps) {
     <>
       <div className={"flex items-center gap-2"}>
         <Link
-          href={"/profile"}
+          href={`/profiles/${props.currentProfileId}`}
           className={
             "w-8 h-8 rounded-full bg-secondary-500 ring-2 ring-secondary-400"
           }
