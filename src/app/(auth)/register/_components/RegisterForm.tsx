@@ -37,6 +37,7 @@ export default function RegisterForm() {
           className={"mb-4"}
           name={"accessCode"}
           heading={"Access code"}
+          type={"password"}
           schema={registerFormSchema.shape.accessCode}
           placeholder={"00000000"}
           required={true}
