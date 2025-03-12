@@ -29,7 +29,7 @@
 }
 
 .ql-quiz-result__chart.ql-quiz-result__chart--full {
-  @apply bg-success-700 border-success-500;
+  @apply bg-success-500;
 }
 
 .ql-quiz-result__chart-label {
@@ -39,10 +39,6 @@
   w-3/4 h-3/4
   -translate-x-1/2 -translate-y-1/2
   rounded-full border-2 border-secondary-300;
-}
-
-.ql-quiz-result__chart--full .ql-quiz-result__chart-label {
-  @apply border-success-500;
 }
 
 .ql-quiz-result__container {

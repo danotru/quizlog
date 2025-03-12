@@ -201,8 +201,8 @@ export default function QuizPracticePage() {
           correctPercentage > 75
             ? "ql-quiz-result--good"
             : correctPercentage > 50
-            ? "ql-quiz-result--ok"
-            : "ql-quiz-result--bad"
+              ? "ql-quiz-result--ok"
+              : "ql-quiz-result--bad"
         }`}
       >
         <div
@@ -217,10 +217,10 @@ export default function QuizPracticePage() {
                   data: [correctCount, questions.length - correctCount],
                   backgroundColor: [
                     correctPercentage > 75
-                      ? "#32B276"
+                      ? "#64F895"
                       : correctPercentage > 50
-                      ? "#B7811A"
-                      : "#B51D38",
+                        ? "#FFC535"
+                        : "#FC3B3B",
                     "transparent",
                   ],
                   borderWidth: 0,
@@ -241,8 +241,8 @@ export default function QuizPracticePage() {
                 {correctPercentage > 75
                   ? "Wow, you're doing great!"
                   : correctPercentage > 50
-                  ? "Not bad, keep practicing!"
-                  : "That was rough... you're still learning!"}
+                    ? "Not bad, keep practicing!"
+                    : "That was rough... you're still learning!"}
               </h3>
               <IconX
                 className={"ql-quiz-result__close-button ql-link"}

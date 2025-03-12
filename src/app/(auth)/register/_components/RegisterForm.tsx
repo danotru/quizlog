@@ -10,12 +10,14 @@ import {
 import { z } from "zod";
 import InputField from "@/app/_components/InputField";
 import {
+  IconKey,
   IconLock,
   IconMail,
   IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
 import { register } from "@/app/(auth)/register/actions";
+import AlertBox from "@/app/_components/AlertBox";
 
 /**
  * Props for {@link RegisterForm}
@@ -37,6 +39,23 @@ export default function RegisterForm(props: RegisterFormProps) {
   return (
     <>
       <form className={"w-full"} action={formAction}>
+        <InputField
+          id={"access-code"}
+          className={"mb-4"}
+          name={"accessCode"}
+          heading={"Access code"}
+          schema={registerFormSchema.shape.accessCode}
+          placeholder={"00000000"}
+          required={true}
+          value={registerForm.accessCode}
+          setValue={(value) =>
+            setRegisterForm((prevState) => ({
+              ...prevState,
+              accessCode: value,
+            }))
+          }
+          inputPrependNode={<IconKey className={"ql-input__icon"} />}
+        />
         <InputField
           id={"username"}
           className={"mb-4"}
@@ -108,7 +127,11 @@ export default function RegisterForm(props: RegisterFormProps) {
           }}
           inputPrependNode={<IconLock className={"ql-input__icon"} />}
         />
-        {state?.message !== "" && <div>{state?.message}</div>}
+        {state && (
+          <AlertBox className={"mb-8"} type={state.alertType}>
+            {state.message}
+          </AlertBox>
+        )}
         <button className={"ql-button ql-button--primary w-full"}>
           <IconUserPlus className={"ql-button__icon"} />
           Register

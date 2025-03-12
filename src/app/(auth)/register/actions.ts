@@ -11,16 +11,20 @@ import { profilesTable } from "@/lib/db/schemas";
 /**
  * To register new user in database
  */
-export async function register(
-  prevState: { message: string } | null,
-  formData: FormData,
-) {
+export async function register(prevState: {} | null, formData: FormData) {
   const input = Object.fromEntries(formData);
 
   const validatedInput = registerFormSchemaRefined.safeParse(input);
 
   if (!validatedInput.success) {
-    return { message: validatedInput.error.message };
+    return { alertType: 0, message: validatedInput.error.message };
+  }
+
+  if (validatedInput.data.accessCode !== process.env.ACCESS_CODE) {
+    return {
+      alertType: 0,
+      message: "Incorrect access code, please try again...",
+    };
   }
 
   const supabase = await createClient();
@@ -30,7 +34,7 @@ export async function register(
     password: validatedInput.data.password,
   });
 
-  if (error) return { message: error.message };
+  if (error) return { alertType: 0, message: error.message };
 
   const profiles = await db
     .insert(profilesTable)
@@ -46,6 +50,7 @@ export async function register(
     await supabaseAdmin.auth.admin.deleteUser(data.user!.id);
 
     return {
+      alertType: 0,
       message: "An error occurred while registering new user, please try again",
     };
   }

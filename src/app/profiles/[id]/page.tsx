@@ -54,7 +54,7 @@ export default async function ProfilePage(props: ProfilePageProps) {
     .from(quizzesTable)
     .where(
       and(
-        eq(quizzesTable.userId, data.user?.id),
+        eq(quizzesTable.userId, profile.userId),
         profile.userId !== data.user?.id
           ? eq(quizzesTable.privacy, "public")
           : undefined,

@@ -22,7 +22,7 @@ export default async function AuthFormContainer(props: AuthFormProps) {
     <>
       <div
         className={
-          "flex flex-col items-center border-2 border-secondary-300 bg-secondary-500 rounded-3xl max-w-[48rem] w-full py-6"
+          "flex flex-col items-center border-2 border-secondary-300 bg-secondary-500 rounded-3xl w-full py-6"
         }
       >
         <div className={"w-full px-6"}>

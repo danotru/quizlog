@@ -5,6 +5,7 @@ import { requiredSchema } from "@/app/schemas";
  * Register form base schema
  */
 export const registerFormSchema = z.object({
+  accessCode: requiredSchema("Access code"),
   username: requiredSchema("Username"),
   emailAddress: requiredSchema("Email address").email(
     "Incorrect email address format",
@@ -55,6 +56,7 @@ export const registerFormSchemaRefined = registerFormSchema.superRefine(
 export const defaultRegisterFormValues: z.infer<
   typeof registerFormSchemaRefined
 > = {
+  accessCode: "",
   username: "",
   emailAddress: "",
   password: "",

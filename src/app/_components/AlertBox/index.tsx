@@ -45,7 +45,7 @@ export default function AlertBox(props: AlertBoxProps) {
     <>
       {props.children && (
         <aside
-          className={`${props.className} ql-alert-box bg-${type}-500 border-${type}-300`}
+          className={`${props.className} ql-alert-box bg-${type}-500 border-${type}-400`}
         >
           {icons[props.type]}
           {props.children}
