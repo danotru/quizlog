@@ -1,10 +1,16 @@
-"use server";
-
 import AuthFormContainer from "@/app/(auth)/_components/AuthFormContainer";
 import GoogleIcon from "@/app/_components/GoogleIcon";
 import GitHubIcon from "@/app/_components/GitHubIcon";
 import Link from "next/link";
 import LoginForm from "@/app/(auth)/login/_components/LoginForm";
+import { Metadata } from "next";
+
+/**
+ * Login page metadata
+ */
+export const metadata: Metadata = {
+  title: "Quizlog: Login",
+};
 
 /**
  * Login page

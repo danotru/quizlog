@@ -1,10 +1,16 @@
-"use server";
-
 import AuthFormContainer from "@/app/(auth)/_components/AuthFormContainer";
 import Link from "next/link";
 import GoogleIcon from "@/app/_components/GoogleIcon";
 import GitHubIcon from "@/app/_components/GitHubIcon";
 import RegisterForm from "@/app/(auth)/register/_components/RegisterForm";
+import { Metadata } from "next";
+
+/**
+ * Quizzes page metadata
+ */
+export const metadata: Metadata = {
+  title: "Quizlog: Register",
+};
 
 /**
  * Register page
