@@ -15,8 +15,10 @@ interface RadioButtonProps<T> {
   value: string;
   validationValue?: T;
   schema?: ZodType;
+  disabled?: boolean;
   checked: boolean;
   required?: boolean;
+  useChecked?: boolean;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   wasFocused?: boolean;
   setWasFocused?: (value: boolean) => void;
@@ -44,18 +46,35 @@ export default function RadioButton<T>(props: RadioButtonProps<T>) {
   return (
     <>
       <label className={`ql-radio ${props.className}`}>
-        <input
-          ref={ref}
-          className={"ql-radio__input peer"}
-          name={props.name}
-          value={props.value}
-          type={"radio"}
-          defaultChecked={props.checked}
-          required={props.required}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            props.handleChange(e);
-          }}
-        />
+        {props.useChecked === true ? (
+          <input
+            ref={ref}
+            className={"ql-radio__input peer"}
+            name={props.name}
+            value={props.value}
+            type={"radio"}
+            disabled={props.disabled}
+            checked={props.checked}
+            required={props.required}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              props.handleChange(e);
+            }}
+          />
+        ) : (
+          <input
+            ref={ref}
+            className={"ql-radio__input peer"}
+            name={props.name}
+            value={props.value}
+            type={"radio"}
+            disabled={props.disabled}
+            defaultChecked={props.checked}
+            required={props.required}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              props.handleChange(e);
+            }}
+          />
+        )}
         <div
           className={`ql-radio__border peer-checked:outline-primary-500 ${
             props.wasFocused &&

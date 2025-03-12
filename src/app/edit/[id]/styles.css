@@ -1,0 +1,3 @@
+.ql-edit-form__alert-content {
+  @apply flex items-center justify-between grow;
+}

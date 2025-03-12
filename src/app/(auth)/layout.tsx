@@ -15,9 +15,9 @@ interface AuthLayoutProps {
 export default async function AuthLayout(props: AuthLayoutProps) {
   return (
     <>
-      <section className={"grow flex items-center justify-center p-10"}>
-        {props.children}
-      </section>
+      <main className={"ql-page"}>
+        <section className={"ql-page__content"}>{props.children}</section>
+      </main>
     </>
   );
 }

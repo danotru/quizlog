@@ -7,6 +7,7 @@ import {
   IconInfoCircleFilled,
 } from "@tabler/icons-react";
 import { ReactNode } from "react";
+import "./styles.css";
 
 /**
  * Alert icons
@@ -44,10 +45,10 @@ export default function AlertBox(props: AlertBoxProps) {
     <>
       {props.children && (
         <aside
-          className={`${props.className} flex gap-3 font-semibold p-4 rounded-2xl text-secondary-300 ring-2 bg-${type}-500 ring-${type}-400`}
+          className={`${props.className} ql-alert-box bg-${type}-500 border-${type}-300`}
         >
           {icons[props.type]}
-          <p>{props.children}</p>
+          {props.children}
         </aside>
       )}
     </>

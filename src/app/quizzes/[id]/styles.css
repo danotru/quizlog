@@ -13,3 +13,66 @@
     transition-all
       hover:outline-secondary-300;
 }
+
+.ql-quiz-result {
+  @apply flex items-center gap-6
+  p-6
+  border-2 border-secondary-300 rounded-[2rem];
+}
+
+.ql-quiz-result.ql-quiz-result--hidden {
+  @apply absolute pointer-events-none opacity-0;
+}
+
+.ql-quiz-result__chart {
+  @apply relative shrink-0 h-32 w-32 rounded-full border-2 border-secondary-300 bg-secondary-400;
+}
+
+.ql-quiz-result__chart.ql-quiz-result__chart--full {
+  @apply bg-success-700 border-success-500;
+}
+
+.ql-quiz-result__chart-label {
+  @apply absolute top-1/2 left-1/2
+  flex items-center justify-center
+  bg-secondary-600
+  w-3/4 h-3/4
+  -translate-x-1/2 -translate-y-1/2
+  rounded-full border-2 border-secondary-300;
+}
+
+.ql-quiz-result__chart--full .ql-quiz-result__chart-label {
+  @apply border-success-500;
+}
+
+.ql-quiz-result__container {
+  @apply grow flex flex-col gap-5;
+}
+
+.ql-quiz-result__content {
+  @apply flex flex-col gap-2;
+}
+
+.ql-quiz-result__message {
+  @apply flex justify-between gap-5;
+}
+
+.ql-quiz-result__close-button {
+  @apply shrink-0;
+}
+
+.ql-quiz-result__time {
+  @apply text-sm font-semibold text-primary-700;
+}
+
+.ql-quiz-result--good .ql-quiz-result__correct-count {
+  @apply text-success-500;
+}
+
+.ql-quiz-result--ok .ql-quiz-result__correct-count {
+  @apply text-warning-500;
+}
+
+.ql-quiz-result--bad .ql-quiz-result__correct-count {
+  @apply text-error-500;
+}

@@ -13,12 +13,12 @@ interface CreatePageProps {}
 export default async function CreatePage(props: CreatePageProps) {
   return (
     <>
-      <section className={"grow flex justify-center p-10"}>
-        <div className={"max-w-[48rem] w-full"}>
-          <h1 className={"text-5xl mb-8"}>Create Quiz</h1>
+      <main className={"ql-page"}>
+        <section className={"ql-page__content"}>
+          <h1 className={"ql-page__heading"}>Create Quiz</h1>
           <CreateQuizForm />
-        </div>
-      </section>
+        </section>
+      </main>
     </>
   );
 }

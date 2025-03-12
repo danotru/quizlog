@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IconX } from "@tabler/icons-react";
 import {
   answerFormSchema,
@@ -27,14 +27,10 @@ interface ShortAnswerFieldProps {
 export default function ShortAnswerField(props: ShortAnswerFieldProps) {
   const [text, setText] = useState("");
   const ref = useRef<HTMLInputElement>(null);
-  const { isFocused, wasFocused } = useFocused(ref);
+  const { wasFocused } = useFocused(ref);
   const { message } = useValidity<
     z.infer<typeof questionFormSchema.shape.answers>
   >(props.answers, true, questionFormSchema.shape.answers, ref);
-
-  useEffect(() => {
-    console.log(message);
-  }, [message]);
 
   return (
     <>

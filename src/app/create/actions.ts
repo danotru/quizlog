@@ -6,9 +6,11 @@ import { db } from "@/lib/db/client";
 import { createClient } from "@/lib/auth/server";
 import { answersTable, questionsTable, quizzesTable } from "@/lib/db/schemas";
 import { DrizzleError } from "drizzle-orm";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 /**
- * To create quiz
+ * To create a quiz
  */
 export async function createQuiz(
   prevState: {} | null | undefined,
@@ -18,7 +20,6 @@ export async function createQuiz(
   const validatedInput = quizFormSchema.safeParse(input);
 
   if (!validatedInput.success) {
-    console.log(validatedInput.error.message, input.questions[0].answers);
     return { message: validatedInput.error.message };
   }
 
@@ -30,23 +31,31 @@ export async function createQuiz(
   }
 
   const { name, description, privacy, questions } = validatedInput.data;
+  let quizId;
 
   try {
-    await db.transaction(async (tx) => {
+    quizId = await db.transaction(async (tx) => {
       const insertedQuizzes = await tx
         .insert(quizzesTable)
         .values({ name, description, privacy, userId: data.user?.id })
         .returning();
 
       if (insertedQuizzes.length < 1) {
+        tx.rollback();
         return;
       }
 
       for (const question of questions) {
-        const { text, type, explanation, answers } = question;
+        const { text, type, explanation, hint } = question;
         const insertedQuestions = await tx
           .insert(questionsTable)
-          .values({ text, type, explanation, quizId: insertedQuizzes[0].id })
+          .values({
+            text,
+            type,
+            explanation,
+            hint,
+            quizId: insertedQuizzes[0].id,
+          })
           .returning();
 
         if (insertedQuestions.length < 1) {
@@ -54,19 +63,27 @@ export async function createQuiz(
           return;
         }
 
-        for (const answer of answers) {
+        for (const answer of question.answers) {
           const { text, isCorrect } = answer;
-          const insertedAnswers = await tx
-            .insert(answersTable)
-            .values({ text, isCorrect, questionId: insertedQuestions[0].id })
-            .returning();
+          const insertedAnswersCount = (
+            await tx
+              .insert(answersTable)
+              .values({
+                text,
+                isCorrect,
+                questionId: insertedQuestions[0].id,
+              })
+              .returning()
+          ).length;
 
-          if (insertedAnswers.length < 1) {
+          if (insertedAnswersCount < 1) {
             tx.rollback();
             return;
           }
         }
       }
+
+      return insertedQuizzes[0].id;
     });
   } catch (error) {
     if (error instanceof DrizzleError) {
@@ -76,5 +93,12 @@ export async function createQuiz(
     }
   }
 
-  return {};
+  if (quizId) {
+    revalidatePath("/quizzes");
+    redirect(`/quizzes/${quizId}`);
+  }
+
+  return {
+    message: "An error occurred while creating quiz, please try again...",
+  };
 }

@@ -1,0 +1,104 @@
+.ql-flashcards {
+  @apply relative flex justify-center
+  aspect-[4/2]
+  overflow-x-hidden
+    before:absolute before:top-0 before:left-0 before:z-10
+    before:w-[clamp(1.5rem,5vw,3rem)] before:h-full
+    before:bg-gradient-to-r before:from-secondary-600 before:to-transparent
+    after:absolute after:top-0 after:right-0 after:z-10
+    after:w-[clamp(1.5rem,5vw,3rem)] after:h-full
+    after:bg-gradient-to-l after:from-secondary-600 after:to-transparent;
+}
+
+.ql-flashcards__flashcard {
+  @apply absolute
+  w-[80%] h-full
+  transition-all;
+}
+
+.ql-flashcards__flashcard-inner {
+  @apply relative
+  bg-secondary-500
+  rounded-[2rem] border-2 border-secondary-300
+  w-full h-full
+  cursor-pointer
+  transform-style-3d
+  transition-transform duration-500;
+}
+
+.ql-flashcards__flashcard--flipped .ql-flashcards__flashcard-inner {
+  @apply rotate-x-180;
+}
+
+.ql-flashcards__flashcard-front,
+.ql-flashcards__flashcard-back {
+  @apply absolute
+  w-full h-full backface-hidden;
+}
+
+.ql-flashcards__flashcard-back {
+  @apply rotate-x-180;
+}
+
+.ql-flashcards__question-text {
+  @apply absolute top-1/2 left-1/2
+  w-full max-h-full p-[clamp(1.5rem,5vw,3rem)]
+  text-2xl text-center
+  -translate-x-1/2 -translate-y-1/2
+  overflow-y-auto
+    max-md:text-lg;
+}
+
+.ql-flashcards__answers {
+  @apply absolute top-1/2 left-1/2
+  w-full max-h-full p-[clamp(1.5rem,5vw,3rem)]
+  -translate-x-1/2 -translate-y-1/2
+  overflow-y-auto
+  text-center;
+}
+
+.ql-flashcards__answer-text {
+  @apply text-2xl
+    max-md:text-lg;
+}
+
+.ql-flashcards__cycle-buttons {
+  @apply flex gap-8 items-center justify-center;
+}
+
+.ql-flashcards__cycle-button {
+  @apply grow basis-0;
+}
+
+.ql-flashcards__short-answer {
+  @apply flex flex-col gap-4
+    max-md:gap-3;
+}
+
+.ql-flashcards__short-answer__header {
+  @apply font-semibold
+    md:text-lg;
+}
+
+.ql-flashcards__short-answer__answers {
+  @apply flex flex-wrap justify-center gap-3
+    max-md:gap-2;
+}
+
+.ql-flashcards__short-answer__answer {
+  @apply py-2 px-3
+  rounded-xl border-2 border-primary-500
+    md:text-lg;
+}
+
+.ql-flashcards__multiple-answer {
+  @apply flex flex-col gap-2;
+}
+
+.ql-flashcards__multiple-answer__answer {
+  @apply md:text-lg;
+}
+
+.ql-flashcards__explanation {
+  @apply text-primary-700 mt-4;
+}

@@ -1,0 +1,9 @@
+.ql-profile__cards {
+  @apply grid grid-cols-3 gap-5
+    max-md:flex flex-col
+    max-md:w-full;
+}
+
+.ql-profile__card {
+  @apply grow;
+}

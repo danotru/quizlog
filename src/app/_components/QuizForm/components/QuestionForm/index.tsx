@@ -136,12 +136,23 @@ export default function QuestionForm(props: QuestionFormProps) {
         id={`question_explanation-${props.index}`}
         name={`questions[${props.index}][explanation]`}
         heading={"Question explanation"}
-        className={"mb-1"}
         required={false}
         schema={questionFormSchema.shape.explanation}
         value={props.question.explanation ?? ""}
         setValue={(value) =>
           props.setQuestion({ ...props.question, explanation: value })
+        }
+      />
+      <InputField
+        id={`question_hint-${props.index}`}
+        name={`questions[${props.index}][hint]`}
+        heading={"Question hint"}
+        className={"mb-1"}
+        required={false}
+        schema={questionFormSchema.shape.hint}
+        value={props.question.hint ?? ""}
+        setValue={(value) =>
+          props.setQuestion({ ...props.question, hint: value })
         }
       />
       <button

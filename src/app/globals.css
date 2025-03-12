@@ -30,7 +30,7 @@ html::-webkit-scrollbar {
 }
 
 body {
-  @apply font-body bg-secondary-600 text-primary-500 min-h-screen;
+  @apply font-body bg-secondary-600 text-primary-500 min-h-screen flex flex-col;
 }
 
 @layer base {
@@ -65,15 +65,14 @@ body {
 }
 
 .ql-page {
-  @apply flex justify-center
-  min-h-screen;
+  @apply flex justify-center grow;
 }
 
 .ql-page__content {
   @apply flex flex-col gap-8
-  w-screen max-w-screen-xl p-10
+  w-screen max-w-screen-xl md:p-10
   max-md:gap-5
-  max-md:p-6;
+  max-md:px-4 max-md:pt-6 max-md:pb-10;
 }
 
 .ql-page__heading {
@@ -94,7 +93,7 @@ body {
 .ql-button {
   @apply relative
   flex items-center justify-center
-  h-10 px-2 mt-1
+  h-10 min-w-10 px-2 mt-1
   rounded-xl
   font-semibold
   transform-style-3d -translate-y-1
@@ -130,7 +129,7 @@ body {
 }
 
 .ql-button--secondary {
-  @apply bg-secondary-400
+  @apply text-primary-500 bg-secondary-400
     disabled:text-secondary-300
     before:bg-secondary-500
     before:outline-secondary-300;
@@ -140,6 +139,12 @@ body {
   @apply text-primary-300 bg-accent-500
     before:bg-accent-600
     before:outline-accent-400;
+}
+
+.ql-button--error {
+  @apply text-primary-300 bg-error-500
+  before:bg-error-600
+  before:outline-error-400;
 }
 
 .ql-button__icon {
@@ -179,12 +184,12 @@ body {
 }
 
 .ql-input,
-.ql-textarea,
 .ql-file-input,
+.ql-textarea,
 .ql-select,
 .ql-multi-chip {
   @apply flex items-center
-    bg-secondary-400
+  bg-secondary-400
   rounded-xl outline outline-2 outline-secondary-300 focus-within:outline-accent-500
   transition-all;
 }
@@ -268,7 +273,7 @@ body {
 }
 
 .ql-textarea__textarea {
-  @apply resize-none p-3;
+  @apply resize-none p-3 relative z-10;
 }
 
 .ql-textarea__textarea::-webkit-scrollbar {
@@ -276,7 +281,7 @@ body {
 }
 
 .ql-textarea__textarea::-webkit-scrollbar-track {
-  @apply rounded-e-[0.25rem] bg-secondary-300 outline outline-2 outline-secondary-300 transition-colors;
+  @apply rounded-e-[0.25rem] bg-secondary-300 outline outline-2 outline-secondary-300 transition-all;
 }
 
 .ql-textarea__textarea:focus::-webkit-scrollbar-track {
@@ -284,7 +289,7 @@ body {
 }
 
 .ql-textarea__textarea::-webkit-scrollbar-thumb {
-  @apply rounded-full
+  @apply rounded-full fixed z-10
   bg-secondary-400
   transition-colors
   hover:bg-secondary-500;
@@ -333,7 +338,7 @@ body {
 }
 
 .ql-checkbox__icon {
-  @apply h-3 w-3 text-secondary-300;
+  @apply h-3 w-3 text-secondary-300 transition-all;
 }
 
 .ql-tooltip {

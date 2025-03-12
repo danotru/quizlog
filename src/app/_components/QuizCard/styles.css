@@ -1,5 +1,7 @@
 .ql-quiz-card {
-  @apply flex flex-col bg-secondary-500 rounded-[2rem] outline outline-2 outline-secondary-300;
+  @apply flex flex-col
+  bg-secondary-500
+  rounded-[2rem] border-2 border-secondary-300;
 }
 
 .ql-quiz-card--large {
@@ -11,7 +13,7 @@
 }
 
 .ql-quiz-card--details .ql-quiz-card__banner {
-  @apply h-32 bg-secondary-600 border-b-2 border-b-secondary-400;
+  @apply h-32 bg-secondary-600 border-b-2 border-b-secondary-400 rounded-t-[2rem];
 }
 
 .ql-quiz-card--large .ql-quiz-card__banner {
@@ -19,16 +21,18 @@
 }
 
 .ql-quiz-card--small .ql-quiz-card__banner {
-  @apply h-20 bg-secondary-600 border-b-2 border-b-secondary-400;
+  @apply h-20 bg-secondary-600 border-b-2 border-b-secondary-400 rounded-t-[2rem];
 }
 
 .ql-quiz-card--details .ql-quiz-card__content {
-  @apply p-6;
+  @apply p-6
+    max-md:p-5;
 }
 
 .ql-quiz-card--details .ql-quiz-card__content,
 .ql-quiz-card--large .ql-quiz-card__content {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col gap-5
+    max-md:gap-4;
 }
 
 .ql-quiz-card--small .ql-quiz-card__content {
@@ -41,7 +45,7 @@
 }
 
 .ql-quiz-card--small .ql-quiz-card__title {
-  @apply text-2xl mb-1;
+  @apply text-2xl mb-1 overflow-hidden text-ellipsis;
 }
 
 .ql-quiz-card--details .ql-quiz-card__profile,
@@ -118,4 +122,8 @@
 
 .ql-quiz-card--details .ql-quiz-card__take {
   @apply hidden;
+}
+
+.ql-quiz-card__actions {
+  @apply flex gap-4;
 }

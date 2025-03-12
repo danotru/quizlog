@@ -1,18 +1,19 @@
 "use client";
 
-import { InferSelectModel } from "drizzle-orm";
-import { answersTable } from "@/lib/db/schemas";
 import RadioButton from "@/app/_components/RadioButton";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IconCheck, IconEye, IconEyeClosed, IconX } from "@tabler/icons-react";
+import { TextAnswerQuestion } from "../types/question-types";
+import { isTextAnswerQuestionCorrect } from "@/app/quizzes/[id]/_components/PracticeQuestion/utils/question-utils";
 
 /**
  * Props for {@link MultipleChoiceAnswers}
  */
 interface MultipleChoiceAnswersProps {
-  questionId: string;
-  answers: InferSelectModel<typeof answersTable>[];
-  isSubmitted: boolean;
+  question: TextAnswerQuestion;
+  setQuestion: Dispatch<SetStateAction<TextAnswerQuestion>>;
+  showAnswers: boolean;
+  setShowAnswers: (showAnswers: boolean) => void;
 }
 
 /**
@@ -21,89 +22,84 @@ interface MultipleChoiceAnswersProps {
 export default function MultipleChoiceAnswers(
   props: MultipleChoiceAnswersProps,
 ) {
-  const [selectedAnswerId, setSelectedAnswerId] = useState<string>();
-
   useEffect(() => {
-    console.log(selectedAnswerId);
-  }, [selectedAnswerId]);
+    if (!props.question.isSubmitted) return;
+
+    props.setQuestion((prev) => ({
+      ...prev,
+      isCorrect: isTextAnswerQuestionCorrect(
+        props.question.selectedAnswer,
+        props.question.answers,
+      ),
+    }));
+  }, [
+    props.question.isSubmitted,
+    props.question.selectedAnswer,
+    props.question.answers,
+  ]);
 
   return (
     <>
-      <div className={"group ql-practice-question__answers"}>
-        {props.answers.map((answer, index) => {
-          const isCorrect = props.isSubmitted
-            ? selectedAnswerId === answer.id
-              ? answer.isCorrect
-              : answer.isCorrect
-                ? true
-                : undefined
-            : undefined;
-
-          return (
-            <label
-              key={index}
-              className={`ql-practice-question__answer 
+      <div className={"ql-practice-question__answers"}>
+        {props.question.answers.map((answer, index) => (
+          <label
+            key={index}
+            className={`ql-practice-question__answer 
               ${
-                isCorrect !== undefined &&
-                (isCorrect
-                  ? "ql-practice-question__answer--correct"
-                  : "ql-practice-question__answer--incorrect")
-              }`}
+                (props.question.isSubmitted || props.showAnswers) &&
+                props.question.selectedAnswer !== "" &&
+                answer.isCorrect &&
+                "ql-practice-question__answer--correct"
+              }
+              ${
+                (props.question.isSubmitted || props.showAnswers) &&
+                props.question.selectedAnswer === answer.id &&
+                !answer.isCorrect &&
+                "ql-practice-question__answer--incorrect"
+              }
+              ${
+                (props.question.isSubmitted || props.showAnswers) &&
+                props.question.selectedAnswer === "" &&
+                answer.isCorrect &&
+                "ql-practice-question__answer--missed"
+              }
+              `}
+          >
+            <RadioButton
+              name={`${props.question.id}_answers`}
+              value={answer.id}
+              useChecked={true}
+              disabled={props.question.isSubmitted || props.showAnswers}
+              checked={props.question.selectedAnswer === answer.id}
+              handleChange={(e) =>
+                props.setQuestion({
+                  ...props.question,
+                  selectedAnswer: e.target.value,
+                })
+              }
             >
-              <RadioButton
-                name={`${props.questionId}_answers`}
-                value={answer.id}
-                checked={selectedAnswerId === answer.id}
-                handleChange={(e) => setSelectedAnswerId(e.target.value)}
-              >
-                {isCorrect !== undefined &&
-                  (isCorrect ? (
-                    <IconCheck
-                      stroke={4}
-                      className={"ql-practice-question__answer-icon"}
-                    />
-                  ) : (
-                    <IconX
-                      stroke={4}
-                      className={"ql-practice-question__answer-icon"}
-                    />
-                  ))}
-              </RadioButton>
-              <span className={"ql-practice-question__answer-text"}>
-                {answer.text}
-              </span>
-            </label>
-          );
-        })}
+              {(props.question.isSubmitted || props.showAnswers) &&
+                answer.isCorrect && (
+                  <IconCheck
+                    stroke={4}
+                    className={"ql-practice-question__answer-icon"}
+                  />
+                )}
+              {(props.question.isSubmitted || props.showAnswers) &&
+                props.question.selectedAnswer === answer.id &&
+                !answer.isCorrect && (
+                  <IconX
+                    stroke={4}
+                    className={"ql-practice-question__answer-icon"}
+                  />
+                )}
+            </RadioButton>
+            <span className={"ql-practice-question__answer-text"}>
+              {answer.text}
+            </span>
+          </label>
+        ))}
       </div>
-      <button
-        className={`ql-button ${
-          selectedAnswerId
-            ? props.isSubmitted
-              ? "ql-button--secondary"
-              : "ql-button--accent"
-            : "ql-button--secondary"
-        }`}
-        onClick={() => {
-          if (props.isSubmitted) {
-            setSelectedAnswerId(undefined);
-          }
-        }}
-      >
-        {props.isSubmitted ? (
-          <>
-            <IconEyeClosed className={"ql-button__icon"} />
-            Hide answer
-          </>
-        ) : selectedAnswerId ? (
-          <div>Submit answer</div>
-        ) : (
-          <>
-            <IconEye className={"ql-button__icon"} />
-            Reveal answer
-          </>
-        )}
-      </button>
     </>
   );
 }

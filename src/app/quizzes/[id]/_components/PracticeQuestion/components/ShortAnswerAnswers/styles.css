@@ -1,0 +1,74 @@
+.ql-short-answer {
+  @apply relative flex flex-col gap-3;
+}
+
+.ql-short-answer__input-container {
+  @apply relative;
+}
+
+.ql-short-answer--correct .ql-textarea {
+  @apply bg-success-700
+    outline-success-500;
+}
+
+.ql-short-answer--incorrect .ql-textarea {
+  @apply bg-error-700
+    outline-error-500;
+}
+
+.ql-short-answer .ql-textarea__textarea {
+  @apply text-transparent;
+}
+
+.ql-short-answer__display-text {
+  @apply absolute top-0 left-0
+  w-full h-full p-3
+  pointer-events-none
+  whitespace-pre-wrap break-words
+  overflow-y-auto overflow-x-hidden
+  transition-colors;
+}
+
+.ql-short-answer__display-text::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+.ql-short-answer--correct .ql-short-answer__display-text,
+.ql-short-answer--incorrect .ql-short-answer__display-text {
+  @apply text-primary-300;
+}
+
+.ql-short-answer__clear-button {
+  @apply absolute right-0 bottom-0 z-10
+  py-1 px-2 m-2
+  bg-secondary-400
+  rounded-md outline outline-2 outline-secondary-300
+  cursor-pointer
+  text-sm;
+}
+
+.ql-short-answer:focus-within .ql-short-answer__clear-button {
+  @apply hidden;
+}
+
+.ql-short-answer__missing-header {
+  @apply font-semibold;
+}
+
+.ql-short-answer--incorrect .ql-short-answer__missing-header {
+  @apply text-error-500;
+}
+
+.ql-short-answer__missing-list {
+  @apply flex gap-2 flex-wrap;
+}
+
+.ql-short-answer__missing-item {
+  @apply w-min px-3 py-2
+  border-2 border-primary-500 rounded-xl;
+}
+
+.ql-short-answer--incorrect .ql-short-answer__missing-item {
+  @apply text-primary-300 bg-error-700
+  border-error-500;
+}

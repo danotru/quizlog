@@ -57,7 +57,7 @@ export default async function TitleBar(props: TitleBarProps) {
                 Progress
               </Link>*/}
             </div>
-            <ProfileDropdown />
+            <ProfileDropdown currentProfileId={data.session.user.id} />
           </>
         ) : (
           <div className={"flex items-center gap-8"}>

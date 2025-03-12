@@ -1,0 +1,23 @@
+.ql-delete-quiz {
+  @apply flex items-center justify-center
+  fixed z-30
+  w-screen h-screen
+  p-6
+  bg-secondary-700 bg-opacity-75;
+}
+
+.ql-delete-quiz__modal {
+  @apply max-w-3xl
+  flex flex-col gap-5
+  bg-secondary-500
+  border-2 border-secondary-400
+    p-6 rounded-3xl;
+}
+
+.ql-delete-quiz__headings {
+  @apply flex flex-col gap-2;
+}
+
+.ql-delete-quiz__actions {
+  @apply flex justify-between gap-4;
+}

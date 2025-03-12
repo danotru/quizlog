@@ -6,7 +6,11 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  safelist: [{ pattern: /bg-./ }, { pattern: /ring-./ }],
+  safelist: [
+    { pattern: /bg-./ },
+    { pattern: /ring-./ },
+    { pattern: /border-./ },
+  ],
   theme: {
     extend: {
       fontFamily: {

@@ -9,6 +9,7 @@ import LogoutButton from "@/app/_components/TitleBar/components/LogoutButton";
  * Props for {@link ProfileDropdown}
  */
 interface ProfileDropdownProps {
+  currentProfileId: string;
   children?: ReactNode;
 }
 
@@ -38,7 +39,7 @@ export default async function ProfileDropdown(props: ProfileDropdownProps) {
               bg-secondary-500 p-3 flex-col gap-2 rounded-xl ring-2 ring-secondary-400`}
           >
             <li className={"ql-link"}>
-              <Link href={"/profile"}>Profile</Link>
+              <Link href={`/profiles/${props.currentProfileId}`}>Profile</Link>
             </li>
             <li className={"ql-link"}>
               <LogoutButton />

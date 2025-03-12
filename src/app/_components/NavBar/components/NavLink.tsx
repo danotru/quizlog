@@ -11,8 +11,8 @@ interface NavLinkProps {
   className?: string;
   activeClassName?: string;
   href: string;
-  activeNode: ReactNode;
-  inactiveNode: ReactNode;
+  activeNode?: ReactNode;
+  children: ReactNode;
 }
 
 /**
@@ -29,7 +29,11 @@ export default function NavLink(props: NavLinkProps) {
           pathname === props.href && props.activeClassName
         }`}
       >
-        {pathname === props.href ? props.activeNode : props.inactiveNode}
+        {pathname === props.href
+          ? props.activeNode
+            ? props.activeNode
+            : props.children
+          : props.children}
       </Link>
     </>
   );

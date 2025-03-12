@@ -62,7 +62,7 @@ export default function QuizForm(props: QuizFormProps) {
             props.setQuizForm((prevState) => ({ ...prevState, name: value }))
           }
         />
-        <FileField
+        {/*<FileField
           id={"quiz-banner"}
           name={"banner"}
           placeholder={"Select an image..."}
@@ -83,7 +83,7 @@ export default function QuizForm(props: QuizFormProps) {
               </div>
             )
           }
-        />
+        />*/}
         <TextAreaField
           id={"quiz-description"}
           name={"description"}
@@ -118,7 +118,7 @@ export default function QuizForm(props: QuizFormProps) {
       </div>
       <div
         className={
-          "flex flex-col gap-6 outline outline-2 outline-secondary-500 rounded-[3rem] p-8"
+          "flex flex-col gap-6 md:outline md:outline-2 outline-secondary-500 md:rounded-[3rem] md:p-8"
         }
       >
         <h1>Questions</h1>

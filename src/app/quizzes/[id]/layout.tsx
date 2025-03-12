@@ -32,7 +32,7 @@ export default async function QuizDetailsLayout(props: QuizDetailsLayoutProps) {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
 
-  if (error) return null;
+  if (error || !data) return null;
 
   const quizDetails = (
     await db

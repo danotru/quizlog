@@ -3,31 +3,6 @@ import { requiredSchema } from "@/app/schemas";
 import { questionTypeEnum, quizPrivacyEnum } from "@/lib/db/schemas";
 import { v4 as uuidv4 } from "uuid";
 
-const MAX_FILE_SIZE = 5000000;
-
-function checkFileType(file: File) {
-  if (file?.name) {
-    const fileType = file.name.split(".").pop();
-    if (fileType === "docx" || fileType === "pdf") return true;
-  }
-  return false;
-}
-
-/**
- *
- */
-/*
-export const bannerSchema = z.object({
-    z.any()
-        .refine((file: File) => file?.length !== 0, "File is required")
-        .refine((file) => file.size < MAX_FILE_SIZE, "Max size is 5MB.")
-        .refine(
-            (file) => checkFileType(file),
-            "Only .pdf, .docx formats are supported.",
-        )
-})
- */
-
 /**
  * Answer form schema
  */
@@ -44,7 +19,8 @@ export const questionFormSchema = z.object({
   id: z.string(),
   text: requiredSchema("Question text"),
   type: z.enum(questionTypeEnum.enumValues),
-  explanation: z.string().optional(),
+  explanation: z.string().optional().nullable(),
+  hint: z.string().optional().nullable(),
   answers: answerFormSchema
     .array()
     .min(1, "At least one answer is required per question"),
@@ -219,8 +195,8 @@ export const questionTypeAnswersSchemaRefined =
 export const quizFormSchema = z.object({
   id: z.string(),
   name: requiredSchema("Quiz name"),
-  banner: z.any().optional(),
-  description: z.string().optional(),
+  banner: z.any().optional().nullable(),
+  description: z.string().optional().nullable(),
   privacy: z.enum(quizPrivacyEnum.enumValues),
   questions: questionFormSchema.superRefine(questionTypeAnswersRefine).array(),
 });

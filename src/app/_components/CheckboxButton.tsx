@@ -10,13 +10,16 @@ import useValidity from "@/app/_hooks/useValidity";
  * Props for {@link CheckboxButton}
  */
 interface CheckboxButtonProps<T> {
+  children?: ReactNode;
   className?: string;
   name: string;
   value: string;
   validationValue?: T;
   schema?: ZodType;
   checked: boolean;
-  required: boolean;
+  disabled?: boolean;
+  useChecked?: boolean;
+  required?: boolean;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   wasFocused?: boolean;
   setWasFocused?: (value: boolean) => void;
@@ -44,15 +47,30 @@ export default function CheckboxButton<T>(props: CheckboxButtonProps<T>) {
   return (
     <>
       <label className={`ql-checkbox ${props.className}`}>
-        <input
-          ref={ref}
-          className={"ql-checkbox__input peer"}
-          name={props.name}
-          value={props.value}
-          type={"checkbox"}
-          defaultChecked={props.checked}
-          onChange={props.handleChange}
-        />
+        {props.useChecked === true ? (
+          <input
+            ref={ref}
+            className={"ql-checkbox__input peer"}
+            name={props.name}
+            value={props.value}
+            disabled={props.disabled}
+            type={"checkbox"}
+            checked={props.checked}
+            onChange={props.handleChange}
+          />
+        ) : (
+          <input
+            ref={ref}
+            className={"ql-checkbox__input peer"}
+            name={props.name}
+            value={props.value}
+            disabled={props.disabled}
+            type={"checkbox"}
+            defaultChecked={props.checked}
+            onChange={props.handleChange}
+          />
+        )}
+
         <div
           className={`ql-checkbox__border peer-checked:outline-primary-500 ${
             props.wasFocused &&
@@ -67,6 +85,7 @@ export default function CheckboxButton<T>(props: CheckboxButtonProps<T>) {
         >
           <IconCheck stroke={4} className={"ql-checkbox__icon"} />
         </div>
+        {props.children}
       </label>
     </>
   );

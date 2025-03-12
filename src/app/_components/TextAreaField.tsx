@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, UIEventHandler, useRef } from "react";
 import Field, { RequiredFieldProps } from "@/app/_components/Field";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
@@ -14,6 +14,8 @@ interface TextAreaFieldProps<T> extends RequiredFieldProps {
   value: string;
   setValue: (value: string) => void;
   validationValue?: T;
+  spellCheck?: boolean;
+  onScroll?: UIEventHandler<HTMLTextAreaElement>;
 }
 
 /**
@@ -48,6 +50,8 @@ export default function TextAreaField<T>(props: TextAreaFieldProps<T>) {
             required={props.required}
             onChange={(e) => props.setValue(e.target.value)}
             placeholder={props.placeholder}
+            spellCheck={props.spellCheck}
+            onScroll={props.onScroll}
           />
         </div>
       </Field>

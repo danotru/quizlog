@@ -64,7 +64,7 @@ export const quizzesTable = pgTable("quizzes", {
   createdAt: timestamp({ withTimezone: true }).defaultNow(),
   bannerUrl: text("banner_url"),
   description: text("description"),
-  privacy: quizPrivacyEnum(),
+  privacy: quizPrivacyEnum().notNull(),
   userId: uuid("user_id")
     .references(() => usersTable.id)
     .notNull(),
@@ -99,11 +99,11 @@ export const questionTypeEnum = pgEnum("question_type", [
 export const questionsTable = pgTable("questions", {
   id: uuid("id").primaryKey().defaultRandom(),
   text: text("text").notNull(),
-  type: questionTypeEnum(),
+  type: questionTypeEnum().notNull(),
   explanation: text("explanation"),
   hint: text("hint"),
   quizId: uuid("quiz_id")
-    .references(() => quizzesTable.id)
+    .references(() => quizzesTable.id, { onDelete: "cascade" })
     .notNull(),
 });
 
@@ -126,7 +126,7 @@ export const answersTable = pgTable("answers", {
   text: text("text").notNull(),
   isCorrect: boolean("is_correct").notNull(),
   questionId: uuid("question_id")
-    .references(() => questionsTable.id)
+    .references(() => questionsTable.id, { onDelete: "cascade" })
     .notNull(),
 });
 

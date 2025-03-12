@@ -4,9 +4,10 @@ import { InferSelectModel } from "drizzle-orm";
 import { questionTypeEnum, quizzesTable } from "@/lib/db/schemas";
 import { z } from "zod";
 import Link from "next/link";
-import { IconEdit, IconInputSpark } from "@tabler/icons-react";
+import { IconEdit, IconInputSpark, IconTrashX } from "@tabler/icons-react";
 import "./styles.css";
 import moment from "moment";
+import DeleteQuizAction from "@/app/_components/DeleteQuizAction/DeleteQuizAction";
 
 const questionType = z.enum(questionTypeEnum.enumValues);
 
@@ -42,7 +43,7 @@ export default function QuizCard(props: QuizCardProps) {
               <div className={"ql-quiz-card__profile-picture"}></div>
               <Link
                 className={"ql-link"}
-                href={`/profiles/${props.quiz.profileId}`}
+                href={`/profiles/${props.quiz.userId}`}
               >
                 {props.quiz.username}
               </Link>
@@ -81,12 +82,20 @@ export default function QuizCard(props: QuizCardProps) {
           {props.currentUserId === props.quiz.userId && (
             <div className={"ql-quiz-card__actions"}>
               <Link
-                href={`/modify/${props.quiz.id}`}
+                href={`/edit/${props.quiz.id}`}
                 className={"ql-button ql-button--accent w-full"}
               >
                 <IconEdit className={"ql-button__icon"} />
-                Modify quiz
+                Edit quiz
               </Link>
+              <DeleteQuizAction
+                quizId={props.quiz.id}
+                quizName={props.quiz.name}
+              >
+                <button className={"ql-button ql-button--error"}>
+                  <IconTrashX className={"ql-button__icon !mr-0"} />
+                </button>
+              </DeleteQuizAction>
             </div>
           )}
         </div>

@@ -2,7 +2,7 @@
   @apply relative
   flex
   bg-secondary-500
-  outline outline-2 outline-secondary-300 rounded-3xl
+  border-2 border-secondary-300 rounded-3xl
   p-2;
 }
 
@@ -21,6 +21,6 @@
   @apply absolute
   h-11
   bg-accent-500
-  outline outline-2 outline-accent-400 rounded-2xl
+  border-2 border-accent-400 rounded-2xl
   ease-out transition-all duration-300;
 }
