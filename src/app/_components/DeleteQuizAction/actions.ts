@@ -16,7 +16,7 @@ const deleteQuizFormSchema = z.object({
  * To delete quiz
  */
 export async function deleteQuiz(
-  prevState: {} | null | undefined,
+  prevState: object | null | undefined,
   formData: FormData,
 ) {
   const input = Object.fromEntries(formData);

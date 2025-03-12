@@ -12,12 +12,12 @@ import "./styles.css";
 /**
  * Alert icons
  */
-const icons = [
-  <IconAlertOctagonFilled className={"flex-shrink-0"} />,
-  <IconCircleCheckFilled className={"flex-shrink-0"} />,
-  <IconAlertTriangleFilled className={"flex-shrink-0"} />,
-  <IconInfoCircleFilled className={"flex-shrink-0"} />,
-];
+const icons = {
+  0: <IconAlertOctagonFilled className={"flex-shrink-0"} />,
+  1: <IconCircleCheckFilled className={"flex-shrink-0"} />,
+  2: <IconAlertTriangleFilled className={"flex-shrink-0"} />,
+  3: <IconInfoCircleFilled className={"flex-shrink-0"} />,
+};
 
 export enum AlertType {
   error,

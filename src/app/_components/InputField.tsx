@@ -24,7 +24,7 @@ interface InputFieldProps<T> extends RequiredFieldProps {
  */
 export default function InputField<T>(props: InputFieldProps<T>) {
   const ref = useRef<HTMLInputElement>(null);
-  const { isFocused, wasFocused } = useFocused(ref);
+  const { wasFocused } = useFocused(ref);
   const { message } = useValidity<T | string>(
     props.validationValue ?? props.value,
     props.required ?? false,

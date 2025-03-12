@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import "./styles.css";
 import Link from "next/link";
@@ -12,16 +12,9 @@ const tabs = [
 ];
 
 /**
- * Props for {@link ModeTabs}
- */
-interface ModeTabsProps {
-  children?: ReactNode;
-}
-
-/**
  * Tabs to switch between quiz modes
  */
-export default function ModeTabs(props: ModeTabsProps) {
+export default function ModeTabs() {
   const quiz = useContext(QuizContext);
 
   /**

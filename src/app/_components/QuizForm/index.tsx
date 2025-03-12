@@ -1,19 +1,11 @@
 "use client";
 
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useActionState,
-  useMemo,
-} from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import InputField from "@/app/_components/InputField";
 import TextAreaField from "@/app/_components/TextAreaField";
-import FileField from "@/app/_components/FileField";
 import SelectField from "@/app/_components/SelectField";
 import { IconTablePlus } from "@tabler/icons-react";
 import QuestionForm from "./components/QuestionForm";
-import { createQuiz } from "@/app/create/actions";
 import { z } from "zod";
 import {
   generateDefaultAnswerFormValues,
@@ -28,18 +20,18 @@ interface QuizFormProps {
   quizForm: z.infer<typeof quizFormSchema>;
   setQuizForm: Dispatch<SetStateAction<z.infer<typeof quizFormSchema>>>;
   children?: ReactNode;
+  isPending: boolean;
 }
 
 /**
  * Form to create/modify a quiz
  */
 export default function QuizForm(props: QuizFormProps) {
-  const preview = useMemo(() => {
+  /*const preview = useMemo(() => {
     if (props.quizForm.banner && props.quizForm.banner[0]) {
       return URL.createObjectURL(props.quizForm.banner[0] as File);
     }
-  }, [props.quizForm.banner]);
-  const [state, formAction, isPending] = useActionState(createQuiz, null);
+  }, [props.quizForm.banner]);*/
 
   return (
     <>
@@ -55,6 +47,7 @@ export default function QuizForm(props: QuizFormProps) {
           name={"name"}
           heading={"Quiz name"}
           required={true}
+          disabled={props.isPending}
           schema={quizFormSchema.shape.name}
           placeholder={""}
           value={props.quizForm.name}
@@ -89,6 +82,7 @@ export default function QuizForm(props: QuizFormProps) {
           name={"description"}
           heading={"Quiz description"}
           required={false}
+          disabled={props.isPending}
           placeholder={""}
           value={props.quizForm.description ?? ""}
           setValue={(value) =>
@@ -106,6 +100,7 @@ export default function QuizForm(props: QuizFormProps) {
             { label: "Private", value: "private" },
           ]}
           heading={"Quiz privacy"}
+          disabled={props.isPending}
           placeholder={""}
           value={props.quizForm.privacy}
           setValue={(value) =>
@@ -128,7 +123,7 @@ export default function QuizForm(props: QuizFormProps) {
               key={index}
               index={index}
               question={question}
-              isPending={isPending}
+              isPending={props.isPending}
               setQuestion={(value) => {
                 const questions = [...props.quizForm.questions];
                 questions[index] = value;
@@ -145,6 +140,7 @@ export default function QuizForm(props: QuizFormProps) {
         <button
           type={"button"}
           className={"ql-button ql-button--primary w-full"}
+          disabled={props.isPending}
           onClick={() => {
             props.setQuizForm({
               ...props.quizForm,

@@ -1,7 +1,7 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
-import { IconCheck, IconEye, IconEyeClosed, IconX } from "@tabler/icons-react";
+import { Dispatch, SetStateAction } from "react";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import CheckboxButton from "@/app/_components/CheckboxButton";
 import { ArrayAnswerQuestion } from "../types/question-types";
 

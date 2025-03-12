@@ -13,7 +13,7 @@ import { revalidatePath } from "next/cache";
  * To create a quiz
  */
 export async function createQuiz(
-  prevState: {} | null | undefined,
+  prevState: { message: string } | null | undefined,
   formData: FormData,
 ) {
   const input = formDataToObject(formData);

@@ -3,14 +3,9 @@
 import CreateQuizForm from "@/app/create/_components/CreateQuizForm";
 
 /**
- * Props for {@link CreatePage}
- */
-interface CreatePageProps {}
-
-/**
  * Page for creating quizzes
  */
-export default async function CreatePage(props: CreatePageProps) {
+export default async function CreatePage() {
   return (
     <>
       <main className={"ql-page"}>

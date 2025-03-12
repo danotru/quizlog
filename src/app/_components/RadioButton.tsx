@@ -41,7 +41,7 @@ export default function RadioButton<T>(props: RadioButtonProps<T>) {
     if (isFocused) {
       props.setWasFocused?.(true);
     }
-  }, [isFocused]);
+  }, [isFocused, props]);
 
   return (
     <>

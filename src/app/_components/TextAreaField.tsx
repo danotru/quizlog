@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, UIEventHandler, useRef } from "react";
+import { UIEventHandler, useRef } from "react";
 import Field, { RequiredFieldProps } from "@/app/_components/Field";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
@@ -23,7 +23,7 @@ interface TextAreaFieldProps<T> extends RequiredFieldProps {
  */
 export default function TextAreaField<T>(props: TextAreaFieldProps<T>) {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const { isFocused, wasFocused } = useFocused(ref);
+  const { wasFocused } = useFocused(ref);
   const { message } = useValidity<T | string>(
     props.validationValue ?? props.value,
     props.required ?? false,
@@ -38,7 +38,7 @@ export default function TextAreaField<T>(props: TextAreaFieldProps<T>) {
           className={`ql-textarea ${
             message && wasFocused ? "ql-textarea--error" : ""
           }`}
-          onClick={(event) => ref.current?.focus()}
+          onClick={() => ref.current?.focus()}
         >
           <textarea
             ref={ref}

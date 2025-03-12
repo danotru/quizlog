@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useActionState, useState } from "react";
+import { useActionState, useState } from "react";
 import { z } from "zod";
 import {
   defaultLoginFormValues,
@@ -13,21 +13,14 @@ import { login } from "@/app/(auth)/login/actions";
 import AlertBox, { AlertType } from "@/app/_components/AlertBox";
 
 /**
- * Props for {@link LoginForm}
- */
-interface LoginFormProps {
-  children?: ReactNode;
-}
-
-/**
  * Login form
  */
-export default function LoginForm(props: LoginFormProps) {
+export default function LoginForm() {
   const [loginForm, setLoginForm] = useState<z.infer<typeof loginFormSchema>>(
     defaultLoginFormValues,
   );
 
-  const [state, formAction, isPending] = useActionState(login, null);
+  const [state, formAction] = useActionState(login, null);
 
   return (
     <>

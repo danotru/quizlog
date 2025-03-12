@@ -10,7 +10,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { IconEye, IconEyeClosed } from "@tabler/icons-react";
 import "./styles.css";
 import { TextAnswerQuestion } from "../../types/question-types";
 import { isShortAnswerQuestionCorrect } from "@/app/quizzes/[id]/_components/PracticeQuestion/utils/question-utils";

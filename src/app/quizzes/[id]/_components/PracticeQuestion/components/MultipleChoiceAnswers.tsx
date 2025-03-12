@@ -1,8 +1,8 @@
 "use client";
 
 import RadioButton from "@/app/_components/RadioButton";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { IconCheck, IconEye, IconEyeClosed, IconX } from "@tabler/icons-react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import { TextAnswerQuestion } from "../types/question-types";
 import { isTextAnswerQuestionCorrect } from "@/app/quizzes/[id]/_components/PracticeQuestion/utils/question-utils";
 

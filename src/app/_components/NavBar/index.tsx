@@ -1,7 +1,5 @@
 "use server";
 
-import { ReactNode } from "react";
-import "./styles.css";
 import {
   IconChartDots2,
   IconCompass,
@@ -13,18 +11,12 @@ import {
 } from "@tabler/icons-react";
 import NavLink from "@/app/_components/NavBar/components/NavLink";
 import { createClient } from "@/lib/auth/server";
-
-/**
- * Props for {@link NavBar}
- */
-interface NavBarProps {
-  children?: ReactNode;
-}
+import "./styles.css";
 
 /**
  * Navbar
  */
-export default async function NavBar(props: NavBarProps) {
+export default async function NavBar() {
   const supabase = await createClient();
 
   const { data } = await supabase.auth.getSession();

@@ -12,7 +12,7 @@ import { revalidatePath } from "next/cache";
  * To edit a quiz
  */
 export async function editQuiz(
-  prevState: {} | null | undefined,
+  prevState: object | null | undefined,
   formData: FormData,
 ) {
   const input = formDataToObject(formData);

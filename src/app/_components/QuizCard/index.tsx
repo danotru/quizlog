@@ -7,7 +7,7 @@ import Link from "next/link";
 import { IconEdit, IconInputSpark, IconTrashX } from "@tabler/icons-react";
 import "./styles.css";
 import moment from "moment";
-import DeleteQuizAction from "@/app/_components/DeleteQuizAction/DeleteQuizAction";
+import DeleteQuizAction from "@/app/_components/DeleteQuizAction";
 
 const questionType = z.enum(questionTypeEnum.enumValues);
 

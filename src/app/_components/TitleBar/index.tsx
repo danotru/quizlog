@@ -8,16 +8,9 @@ import ProfileDropdown from "@/app/_components/TitleBar/components/ProfileDropdo
 import "./styles.css";
 
 /**
- * Props for {@link TitleBar}
- */
-interface TitleBarProps {
-  children?: ReactNode;
-}
-
-/**
  * Title navigation bar
  */
-export default async function TitleBar(props: TitleBarProps) {
+export default async function TitleBar() {
   const supabase = await createClient();
 
   const { data } = await supabase.auth.getSession();

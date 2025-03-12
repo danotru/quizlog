@@ -1,22 +1,15 @@
 "use server";
 
-import { ReactNode } from "react";
 import AuthFormContainer from "@/app/(auth)/_components/AuthFormContainer";
 import Link from "next/link";
 import GoogleIcon from "@/app/_components/GoogleIcon";
 import GitHubIcon from "@/app/_components/GitHubIcon";
-import InputField from "@/app/_components/InputField";
 import RegisterForm from "@/app/(auth)/register/_components/RegisterForm";
-
-/**
- * Props for {@link RegisterPage}
- */
-interface RegisterPageProps {}
 
 /**
  * Register page
  */
-export default async function RegisterPage(props: RegisterPageProps) {
+export default async function RegisterPage() {
   return (
     <>
       <AuthFormContainer

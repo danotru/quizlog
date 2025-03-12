@@ -21,7 +21,7 @@ export const registerFormSchema = z.object({
  * Confirm password refine
  */
 const confirmPasswordRefine = (
-  { password, confirmPassword }: any,
+  { password, confirmPassword }: { password: string; confirmPassword: string },
   ctx: z.RefinementCtx,
 ) => {
   if (password !== confirmPassword) {

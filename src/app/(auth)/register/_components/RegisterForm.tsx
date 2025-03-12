@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useActionState, useState } from "react";
+import { useActionState, useState } from "react";
 import {
   confirmPasswordSchema,
   defaultRegisterFormValues,
@@ -20,21 +20,14 @@ import { register } from "@/app/(auth)/register/actions";
 import AlertBox from "@/app/_components/AlertBox";
 
 /**
- * Props for {@link RegisterForm}
- */
-interface RegisterFormProps {
-  children?: ReactNode;
-}
-
-/**
  * Register form
  */
-export default function RegisterForm(props: RegisterFormProps) {
+export default function RegisterForm() {
   const [registerForm, setRegisterForm] = useState<
     z.infer<typeof registerFormSchemaRefined>
   >(defaultRegisterFormValues);
 
-  const [state, formAction, isPending] = useActionState(register, null);
+  const [state, formAction] = useActionState(register, null);
 
   return (
     <>

@@ -11,7 +11,7 @@ import { profilesTable } from "@/lib/db/schemas";
 /**
  * To register new user in database
  */
-export async function register(prevState: {} | null, formData: FormData) {
+export async function register(prevState: object | null, formData: FormData) {
   const input = Object.fromEntries(formData);
 
   const validatedInput = registerFormSchemaRefined.safeParse(input);

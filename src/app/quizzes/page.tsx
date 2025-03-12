@@ -13,14 +13,9 @@ import QuizCard from "@/app/_components/QuizCard";
 import "./styles.css";
 
 /**
- * Props for {@link QuizzesPage}
- */
-interface QuizzesPageProps {}
-
-/**
  * Quizzes page
  */
-export default async function QuizzesPage(props: QuizzesPageProps) {
+export default async function QuizzesPage() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
 

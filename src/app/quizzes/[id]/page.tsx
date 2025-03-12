@@ -37,14 +37,10 @@ Chart.register(ArcElement);
 export default function QuizPracticePage() {
   const quiz = useContext(QuizContext);
 
-  if (!quiz) {
-    return null;
-  }
-
   const scoreRef = useRef<HTMLDivElement>(null);
   const isLoaded = useRef(false);
   const [questions, setQuestions] = useState<Question[]>(
-    quiz.questions.map((question) => ({
+    quiz!.questions.map((question) => ({
       ...question,
       selectedAnswer: question.type === "multiple_answer" ? [] : "",
       isCorrect: false,

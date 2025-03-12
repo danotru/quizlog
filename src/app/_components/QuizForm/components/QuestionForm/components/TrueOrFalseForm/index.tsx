@@ -19,7 +19,7 @@ interface TrueOrFalseFormProps {
  */
 export default function TrueOrFalseForm(props: TrueOrFalseFormProps) {
   const correctAnswerId = useMemo(() => {
-    for (let answer of props.answers) {
+    for (const answer of props.answers) {
       if (answer.isCorrect) {
         return answer.id;
       }

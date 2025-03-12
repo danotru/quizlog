@@ -19,13 +19,9 @@ import Tooltip from "@/app/_components/Tooltip";
 export default function QuizFlashcardsPage() {
   const quiz = useContext(QuizContext);
 
-  if (!quiz) {
-    return null;
-  }
-
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [questions, setQuestions] = useState(
-    quiz.questions.map((question) => ({
+    quiz!.questions.map((question) => ({
       ...question,
       isFlipped: false,
     })),
@@ -125,7 +121,7 @@ export default function QuizFlashcardsPage() {
           }
           onClick={() => {
             if (selectedIndex - 1 < 0) {
-              setSelectedIndex(quiz?.questions.length - 1);
+              setSelectedIndex(quiz!.questions.length - 1);
             } else {
               setSelectedIndex(selectedIndex - 1);
             }
@@ -137,14 +133,14 @@ export default function QuizFlashcardsPage() {
           <span>Previous</span>
         </button>
         <div>
-          {selectedIndex + 1}/{quiz.questions.length}
+          {selectedIndex + 1}/{quiz!.questions.length}
         </div>
         <button
           className={
             "ql-button ql-button--secondary ql-flashcards__cycle-button"
           }
           onClick={() => {
-            if (selectedIndex + 1 === quiz.questions.length) {
+            if (selectedIndex + 1 === quiz!.questions.length) {
               setSelectedIndex(0);
             } else {
               setSelectedIndex(selectedIndex + 1);

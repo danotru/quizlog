@@ -42,7 +42,7 @@ export default function CheckboxButton<T>(props: CheckboxButtonProps<T>) {
     if (isFocused) {
       props.setWasFocused?.(true);
     }
-  }, [isFocused]);
+  }, [isFocused, props]);
 
   return (
     <>

@@ -32,7 +32,7 @@ interface SelectFieldProps<T> extends RequiredFieldProps {
  */
 export default function SelectField<T>(props: SelectFieldProps<T>) {
   const ref = useRef<HTMLSelectElement>(null);
-  const { isFocused, wasFocused } = useFocused(ref);
+  const { wasFocused } = useFocused(ref);
   const { message } = useValidity<T | string>(
     props.validationValue ?? props.value,
     props.required ?? false,

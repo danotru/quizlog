@@ -32,7 +32,7 @@ export default function useValidity<T>(
       : setMessage(parsedValue.error.issues[0]?.message ?? "");
 
     return parsedValue.success;
-  }, [value, schema]);
+  }, [schema, required, value]);
 
   useEffect(() => {
     if (!required) {
@@ -44,7 +44,7 @@ export default function useValidity<T>(
     if (ref?.current) {
       ref?.current.setCustomValidity(message ?? "");
     }
-  }, [message]);
+  }, [message, ref]);
 
   return { message, isValid };
 }
