@@ -1,0 +1,13 @@
+.ql-title-bar {
+  padding-top: calc(1.5rem + env(safe-area-inset-top));
+  padding-inline: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+@media (width < 48rem) {
+  .ql-title-bar {
+    padding-top: calc(1.25rem + env(safe-area-inset-top));
+    padding-inline: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}

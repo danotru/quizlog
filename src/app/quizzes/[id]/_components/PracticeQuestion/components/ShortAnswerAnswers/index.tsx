@@ -50,7 +50,7 @@ export default function ShortAnswerAnswers(props: ShortAnswerAnswersProps) {
         newText = newText.replaceAll(
           new RegExp(`${answer}`, "gi"),
           (match) =>
-            `<span class='ql-practice-question__highlight'>${match}</span>`,
+            `<span class='ql-short-answer__display-highlight'>${match}</span>`,
         );
       });
 

@@ -9,7 +9,7 @@ import { Metadata } from "next";
  * Login page metadata
  */
 export const metadata: Metadata = {
-  title: "Quizlog: Login",
+  title: "Login | QUIZLOG",
 };
 
 /**
@@ -24,14 +24,14 @@ export default async function LoginPage() {
         oAuthNodes={
           <>
             <button
-              className={"ql-button ql-button--secondary group w-full"}
+              className={"ql-button ql-button--secondary ql-button--full"}
               disabled={true}
             >
               <GoogleIcon className={"ql-button__icon"} />
               <span>Log in with Google</span>
             </button>
             <button
-              className={"ql-button ql-button--secondary group w-full"}
+              className={"ql-button ql-button--secondary ql-button--full"}
               disabled={true}
             >
               <GitHubIcon className={"ql-button__icon"} />
@@ -40,14 +40,11 @@ export default async function LoginPage() {
           </>
         }
         otherPageNode={
-          <div className={"font-semibold"}>
-            <span className={"text-primary-700"}>
-              Don&apos;t have an account?{" "}
+          <div className={"ql-auth-layout__link-container"}>
+            <span className={"ql-auth-layout__link-text"}>
+              {"Don't have an account? "}
             </span>
-            <Link
-              className={"hover:text-primary-600 transition-colors"}
-              href={"/register"}
-            >
+            <Link className={"ql-link"} href={"/register"}>
               Create an account
             </Link>
           </div>

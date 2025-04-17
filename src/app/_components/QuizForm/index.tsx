@@ -12,6 +12,7 @@ import {
   generateDefaultQuestionFormValues,
   quizFormSchema,
 } from "@/app/create/schemas";
+import "./styles.css";
 
 /**
  * Props for {@link QuizForm}
@@ -27,19 +28,17 @@ interface QuizFormProps {
  * Form to create/modify a quiz
  */
 export default function QuizForm(props: QuizFormProps) {
-  /*const preview = useMemo(() => {
+  /*
+  const preview = useMemo(() => {
     if (props.quizForm.banner && props.quizForm.banner[0]) {
       return URL.createObjectURL(props.quizForm.banner[0] as File);
     }
-  }, [props.quizForm.banner]);*/
+  }, [props.quizForm.banner]);
+    */
 
   return (
     <>
-      <div
-        className={
-          "outline outline-2 outline-secondary-300 bg-secondary-500 rounded-3xl p-6 flex flex-col gap-4"
-        }
-      >
+      <div className={"ql-container ql-container--content"}>
         <h1>Quiz Details</h1>
         <input name={`id`} type={"hidden"} value={props.quizForm.id} />
         <InputField
@@ -71,8 +70,8 @@ export default function QuizForm(props: QuizFormProps) {
           required={false}
           inputAppendNode={
             preview && (
-              <div className={"ql-file-input__preview-container"}>
-                <img className={"ql-file-input__preview"} src={preview} />
+              <div>
+                <img className={"ql-file-field__preview"} src={preview} />
               </div>
             )
           }
@@ -111,13 +110,9 @@ export default function QuizForm(props: QuizFormProps) {
           }
         />
       </div>
-      <div
-        className={
-          "flex flex-col gap-6 md:outline md:outline-2 outline-secondary-500 md:rounded-[3rem] md:p-8"
-        }
-      >
+      <div className={"ql-quiz-form__questions-container"}>
         <h1>Questions</h1>
-        <div className={"flex flex-col gap-6"}>
+        <div className={"ql-quiz-form__questions"}>
           {props.quizForm.questions.map((question, index) => (
             <QuestionForm
               key={index}
@@ -139,7 +134,7 @@ export default function QuizForm(props: QuizFormProps) {
         </div>
         <button
           type={"button"}
-          className={"ql-button ql-button--primary w-full"}
+          className={"ql-button ql-button--primary ql-button--full"}
           disabled={props.isPending}
           onClick={() => {
             props.setQuizForm({

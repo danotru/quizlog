@@ -1,6 +1,7 @@
 "use server";
 
 import { ReactNode } from "react";
+import "./styles.css";
 
 /**
  * Props for {@link AuthLayout}

@@ -13,6 +13,7 @@ interface ShortAnswerFormProps {
   questionIndex: number;
   answers: z.infer<typeof answerFormSchema>[];
   setAnswers: (answers: z.infer<typeof answerFormSchema>[]) => void;
+  isPending: boolean;
 }
 
 /**
@@ -31,6 +32,7 @@ export default function ShortAnswerForm(props: ShortAnswerFormProps) {
         </Tooltip>
       </h3>
       <ShortAnswerField
+        isPending={props.isPending}
         questionIndex={props.questionIndex}
         answers={props.answers}
         setAnswers={props.setAnswers}

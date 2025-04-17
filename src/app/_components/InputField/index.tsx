@@ -4,6 +4,7 @@ import { ReactNode, useRef } from "react";
 import Field, { RequiredFieldProps } from "@/app/_components/Field";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
+import "./styles.css";
 
 /**
  * Props for {@link InputField}
@@ -37,9 +38,9 @@ export default function InputField<T>(props: InputFieldProps<T>) {
       <Field {...props} errorMessage={wasFocused ? message : undefined}>
         <label
           htmlFor={props.id}
-          className={`ql-input ${
+          className={`ql-input ql-input-field ${
             message && wasFocused ? "ql-input--error" : ""
-          } cursor-text`}
+          }`}
         >
           {props.inputPrependNode}
           <input
@@ -47,12 +48,13 @@ export default function InputField<T>(props: InputFieldProps<T>) {
             id={props.id}
             type={props.type}
             name={props.name}
-            className={"ql-input__input"}
+            className={"ql-input__input ql-input-field__input"}
             value={props.value}
             disabled={props.disabled}
             required={props.required}
             onChange={(e) => props.setValue(e.target.value)}
             placeholder={props.placeholder}
+            size={10}
           />
           {props.inputAppendNode}
         </label>

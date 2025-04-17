@@ -38,7 +38,7 @@ export async function generateMetadata(
     where: eq(quizzesTable.id, id),
   });
 
-  return { title: `Quizlog: Take '${quiz?.name}' Quiz` };
+  return { title: `Take '${quiz?.name}' Quiz | QUIZLOG` };
 }
 
 /**

@@ -1,0 +1,15 @@
+.ql-short-answer-field {
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  min-height: 2.75rem;
+
+  padding: 0.75rem;
+}
+
+.ql-short-answer-field__input {
+  background: transparent;
+
+  height: 1rem;
+  min-width: 16rem;
+}

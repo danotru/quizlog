@@ -1,0 +1,37 @@
+.ql-select {
+  position: relative;
+}
+
+.ql-select__select {
+  appearance: none;
+
+  padding: 0.5rem 3rem 0.5rem 0.75rem;
+}
+
+.ql-select__icon {
+  --rotate-z: 0deg;
+
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  pointer-events: none;
+
+  transform: translateY(-50%) rotateZ(var(--rotate-z));
+
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+}
+
+.ql-select__select:focus ~ .ql-select__icon {
+  --rotate-z: 180deg;
+}
+
+.ql-select__option {
+  color: var(--primary-500);
+  background: var(--secondary-300);
+}

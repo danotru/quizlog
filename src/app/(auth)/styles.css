@@ -1,0 +1,13 @@
+.ql-auth-layout__link-container {
+  font-weight: 600;
+
+  text-align: center;
+}
+
+.ql-auth-layout__link-text {
+  color: var(--primary-700);
+}
+
+.ql-auth-layout__action {
+  margin-top: 0.75rem;
+}

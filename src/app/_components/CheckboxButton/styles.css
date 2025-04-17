@@ -1,0 +1,81 @@
+.ql-checkbox {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+
+  color: var(--secondary-500);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  cursor: pointer;
+}
+
+.ql-checkbox__input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  opacity: 0;
+
+  transform: translate(-50%, -50%);
+}
+
+.ql-checkbox__border {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background: var(--secondary-400);
+
+  border: 2px solid var(--secondary-300);
+  border-radius: 0.5rem;
+
+  transition-property: color, background-color, border-top-color,
+    border-right-color, border-bottom-color, border-left-color, opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+}
+
+.ql-checkbox__input:checked ~ .ql-checkbox__border {
+  border: 2px solid var(--primary-500);
+}
+
+.ql-checkbox__input:invalid ~ .ql-checkbox__border--invalid {
+  background: var(--error-700);
+
+  border: 2px solid var(--error-500);
+}
+
+.ql-checkbox__checkmark {
+  position: relative;
+  z-index: 10;
+  width: 1rem;
+  height: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--accent-500);
+  border-radius: 0.25rem;
+
+  opacity: 0;
+
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+}
+
+.ql-checkbox__input:checked ~ .ql-checkbox__checkmark {
+  opacity: 1;
+}
+
+.ql-checkbox__icon {
+  width: 0.75rem;
+  height: 0.75rem;
+
+  color: var(--secondary-300);
+}

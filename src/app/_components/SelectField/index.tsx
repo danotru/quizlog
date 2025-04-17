@@ -5,6 +5,7 @@ import Field, { RequiredFieldProps } from "@/app/_components/Field";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
 import { IconChevronDown } from "@tabler/icons-react";
+import "./styles.css";
 
 /**
  * Options for select fields
@@ -45,9 +46,9 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
       <Field {...props} errorMessage={wasFocused ? message : undefined}>
         <label
           htmlFor={props.id}
-          className={`ql-select ${
-            message && wasFocused ? "ql-select--error" : ""
-          } cursor-text`}
+          className={`ql-input ql-select ${
+            message && wasFocused ? "ql-input--error" : ""
+          }`}
         >
           {props.inputPrependNode}
           <select
@@ -55,7 +56,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
             key={props.value}
             id={props.id}
             name={props.name}
-            className={"ql-select__select peer"}
+            className={"ql-select__select ql-input__input"}
             disabled={props.disabled}
             required={props.required}
             defaultValue={props.value}
@@ -82,9 +83,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
               </option>
             ))}
           </select>
-          <IconChevronDown
-            className={"ql-select__icon peer-focus:rotate-180"}
-          />
+          <IconChevronDown className={"ql-select__icon"} />
         </label>
       </Field>
     </>

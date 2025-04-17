@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { ZodType } from "zod";
 import { IconCircleXFilled } from "@tabler/icons-react";
+import "./styles.css";
 
 /**
  * Required props for {@link Field}
@@ -34,16 +35,16 @@ export default function Field(props: FieldProps) {
     <>
       <div className={props.className}>
         {props.heading && (
-          <label className={"ql-field__heading-container"} htmlFor={props.id}>
-            <div className={"ql-field__heading"}>{props.heading}</div>
+          <label className={"ql-field__heading"} htmlFor={props.id}>
+            <div className={"ql-field__heading-text"}>{props.heading}</div>
             {props.required !== undefined && !props.required && (
-              <div className={"ql-field__optional"}>Optional</div>
+              <div className={"ql-field__optional-text"}>Optional</div>
             )}
           </label>
         )}
-        <div className={"flex"}>
+        <div className={"ql-field__container"}>
           {props.fieldPrependNode}
-          <div className={"grow"}>
+          <div className={"ql-field__content"}>
             {props.children}
             {props.errorMessage && (
               <div className={"ql-field__error"}>

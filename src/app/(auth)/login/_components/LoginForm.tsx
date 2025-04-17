@@ -7,7 +7,6 @@ import {
   loginFormSchema,
 } from "@/app/(auth)/login/schemas";
 import InputField from "@/app/_components/InputField";
-
 import { IconLock, IconLogin, IconMail } from "@tabler/icons-react";
 import { login } from "@/app/(auth)/login/actions";
 import AlertBox, { AlertType } from "@/app/_components/AlertBox";
@@ -24,10 +23,9 @@ export default function LoginForm() {
 
   return (
     <>
-      <form className={"w-full"} action={formAction}>
+      <form className={"ql-content-gap"} action={formAction}>
         <InputField
           id={"email-address"}
-          className={"mb-4"}
           name={"emailAddress"}
           heading={"Email address"}
           schema={loginFormSchema.shape.emailAddress}
@@ -59,10 +57,12 @@ export default function LoginForm() {
           }
           inputPrependNode={<IconLock className={"ql-input__icon"} />}
         />
-        <AlertBox className={"mt-6"} type={AlertType.error}>
-          {state?.message}
-        </AlertBox>
-        <button className={"ql-button ql-button--primary w-full !mt-8"}>
+        <AlertBox type={AlertType.error}>{state?.message}</AlertBox>
+        <button
+          className={
+            "ql-button ql-button--primary ql-button--full ql-auth-layout__action"
+          }
+        >
           <IconLogin className={"ql-button__icon"} />
           Log in
         </button>

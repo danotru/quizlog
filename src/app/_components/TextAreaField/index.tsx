@@ -4,6 +4,7 @@ import { UIEventHandler, useRef } from "react";
 import Field, { RequiredFieldProps } from "@/app/_components/Field";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
+import "./styles.css";
 
 /**
  * Props for {@link TextAreaField}
@@ -35,8 +36,8 @@ export default function TextAreaField<T>(props: TextAreaFieldProps<T>) {
     <>
       <Field {...props} errorMessage={wasFocused ? message : undefined}>
         <div
-          className={`ql-textarea ${
-            message && wasFocused ? "ql-textarea--error" : ""
+          className={`ql-textarea ql-input ${
+            message && wasFocused ? "ql-input--error" : ""
           }`}
           onClick={() => ref.current?.focus()}
         >
@@ -44,7 +45,7 @@ export default function TextAreaField<T>(props: TextAreaFieldProps<T>) {
             ref={ref}
             id={props.id}
             name={props.name}
-            className={"ql-textarea__textarea"}
+            className={"ql-textarea__textarea ql-input__input"}
             value={props.value}
             disabled={props.disabled}
             required={props.required}

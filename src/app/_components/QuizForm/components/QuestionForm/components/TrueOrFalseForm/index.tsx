@@ -12,6 +12,7 @@ interface TrueOrFalseFormProps {
   questionIndex: number;
   answers: z.infer<typeof answerFormSchema>[];
   setAnswers: (answers: z.infer<typeof answerFormSchema>[]) => void;
+  isPending: boolean;
 }
 
 /**
@@ -36,6 +37,7 @@ export default function TrueOrFalseForm(props: TrueOrFalseFormProps) {
           index={index}
           questionIndex={props.questionIndex}
           correctAnswerId={correctAnswerId}
+          disabled={props.isPending}
           answer={answer}
           setAnswer={(value) => {
             const answers = [...props.answers];

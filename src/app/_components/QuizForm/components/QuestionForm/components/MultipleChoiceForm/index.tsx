@@ -16,6 +16,7 @@ interface MultipleChoiceFormProps {
   questionIndex: number;
   answers: z.infer<typeof answerFormSchema>[];
   setAnswers: (answers: z.infer<typeof answerFormSchema>[]) => void;
+  isPending: boolean;
 }
 
 /**
@@ -51,6 +52,7 @@ export default function MultipleChoiceForm(props: MultipleChoiceFormProps) {
               setCorrectButtonsFocused={setCorrectButtonsFocused}
               answers={props.answers}
               answer={answer}
+              disabled={props.isPending}
               setAnswer={(value) => {
                 const answers = [...props.answers];
                 answers[index] = value;
@@ -82,6 +84,7 @@ export default function MultipleChoiceForm(props: MultipleChoiceFormProps) {
             { ...generateDefaultAnswerFormValues(), isCorrect: false },
           ])
         }
+        disabled={props.isPending}
       >
         <IconCodeVariablePlus className={"ql-button__icon"} />
         Add Answer
