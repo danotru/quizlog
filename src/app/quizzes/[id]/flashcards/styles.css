@@ -36,6 +36,10 @@
   w-full h-full backface-hidden;
 }
 
+.ql-flashcards__flashcard-front {
+  @apply rotate-x-0;
+}
+
 .ql-flashcards__flashcard-back {
   @apply rotate-x-180;
 }

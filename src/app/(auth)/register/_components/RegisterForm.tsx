@@ -31,10 +31,9 @@ export default function RegisterForm() {
 
   return (
     <>
-      <form className={"w-full"} action={formAction}>
+      <form className={"ql-content-gap"} action={formAction}>
         <InputField
           id={"access-code"}
-          className={"mb-4"}
           name={"accessCode"}
           heading={"Access code"}
           type={"password"}
@@ -52,7 +51,6 @@ export default function RegisterForm() {
         />
         <InputField
           id={"username"}
-          className={"mb-4"}
           name={"username"}
           heading={"Username"}
           schema={registerFormSchema.shape.username}
@@ -66,7 +64,6 @@ export default function RegisterForm() {
         />
         <InputField
           id={"email-address"}
-          className={"mb-4"}
           name={"emailAddress"}
           heading={"Email address"}
           schema={registerFormSchema.shape.emailAddress}
@@ -83,7 +80,6 @@ export default function RegisterForm() {
         />
         <InputField
           id={"password"}
-          className={"mb-4"}
           name={"password"}
           type={"password"}
           heading={"Password"}
@@ -101,7 +97,6 @@ export default function RegisterForm() {
         />
         <InputField
           id={"confirm-password"}
-          className={"mb-8"}
           name={"confirmPassword"}
           type={"password"}
           heading={"Confirm password"}
@@ -121,12 +116,12 @@ export default function RegisterForm() {
           }}
           inputPrependNode={<IconLock className={"ql-input__icon"} />}
         />
-        {state && (
-          <AlertBox className={"mb-8"} type={state.alertType}>
-            {state.message}
-          </AlertBox>
-        )}
-        <button className={"ql-button ql-button--primary w-full"}>
+        {state && <AlertBox type={state.alertType}>{state.message}</AlertBox>}
+        <button
+          className={
+            "ql-button ql-button--primary ql-button--full ql-auth-layout__action"
+          }
+        >
           <IconUserPlus className={"ql-button__icon"} />
           Register
         </button>

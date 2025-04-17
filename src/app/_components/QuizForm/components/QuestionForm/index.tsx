@@ -31,22 +31,26 @@ interface QuestionFormProps {
  */
 export default function QuestionForm(props: QuestionFormProps) {
   return (
-    <div
-      className={
-        "flex flex-col gap-4 outline outline-2 outline-secondary-300 bg-secondary-500 rounded-3xl p-6"
-      }
-    >
+    <div className={"ql-container ql-container--content"}>
       <input
         name={`questions[${props.index}][id]`}
         type={"hidden"}
         value={props.question.id}
       />
+      <div
+        className={
+          "flex justify-center items-center h-11 min-w-11 px-3 rounded-xl border-2 border-secondary-400 self-start "
+        }
+      >
+        {props.index + 1}
+      </div>
       <InputField
         id={`question_text-${props.index}`}
         name={`questions[${props.index}][text]`}
         className={"mb-1"}
         heading={"Question text"}
         required={true}
+        disabled={props.isPending}
         schema={questionFormSchema.shape.text}
         value={props.question.text}
         setValue={(value) =>
@@ -65,6 +69,7 @@ export default function QuestionForm(props: QuestionFormProps) {
         ]}
         heading={"Question type"}
         placeholder={""}
+        disabled={props.isPending}
         value={props.question.type}
         setValue={(value) => {
           const question = { ...props.question };
@@ -92,7 +97,7 @@ export default function QuestionForm(props: QuestionFormProps) {
       />
       <div
         className={
-          "flex flex-col gap-4 outline outline-2 outline-secondary-300 p-5 rounded-3xl"
+          "flex flex-col gap-4 outline outline-2 outline-secondary-300 p-5 max-md:p-4 rounded-3xl"
         }
       >
         {props.question.type === "multiple_choice" && (
@@ -102,6 +107,7 @@ export default function QuestionForm(props: QuestionFormProps) {
             setAnswers={(value) => {
               props.setQuestion({ ...props.question, answers: value });
             }}
+            isPending={props.isPending}
           />
         )}
         {props.question.type === "multiple_answer" && (
@@ -111,6 +117,7 @@ export default function QuestionForm(props: QuestionFormProps) {
             setAnswers={(value) => {
               props.setQuestion({ ...props.question, answers: value });
             }}
+            isPending={props.isPending}
           />
         )}
         {props.question.type === "true_or_false" && (
@@ -120,6 +127,7 @@ export default function QuestionForm(props: QuestionFormProps) {
             setAnswers={(value) => {
               props.setQuestion({ ...props.question, answers: value });
             }}
+            isPending={props.isPending}
           />
         )}
         {props.question.type === "short_answer" && (
@@ -129,6 +137,7 @@ export default function QuestionForm(props: QuestionFormProps) {
             setAnswers={(value) => {
               props.setQuestion({ ...props.question, answers: value });
             }}
+            isPending={props.isPending}
           />
         )}
       </div>
@@ -137,6 +146,7 @@ export default function QuestionForm(props: QuestionFormProps) {
         name={`questions[${props.index}][explanation]`}
         heading={"Question explanation"}
         required={false}
+        disabled={props.isPending}
         schema={questionFormSchema.shape.explanation}
         value={props.question.explanation ?? ""}
         setValue={(value) =>
@@ -149,6 +159,7 @@ export default function QuestionForm(props: QuestionFormProps) {
         heading={"Question hint"}
         className={"mb-1"}
         required={false}
+        disabled={props.isPending}
         schema={questionFormSchema.shape.hint}
         value={props.question.hint ?? ""}
         setValue={(value) =>
@@ -156,8 +167,9 @@ export default function QuestionForm(props: QuestionFormProps) {
         }
       />
       <button
-        className={"ql-button ql-button--secondary w-full"}
+        className={"ql-button ql-button--secondary ql-button--full"}
         type={"button"}
+        disabled={props.isPending}
         onClick={props.handleDeleteClick}
       >
         <IconTableMinus className={"ql-button__icon"} />

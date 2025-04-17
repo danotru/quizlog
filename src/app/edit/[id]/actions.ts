@@ -4,7 +4,7 @@ import { quizFormSchema } from "@/app/create/schemas";
 import { formDataToObject } from "@/app/_utils/form-utils";
 import { db } from "@/lib/db/client";
 import { answersTable, questionsTable, quizzesTable } from "@/lib/db/schemas";
-import { DrizzleError, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { createClient } from "@/lib/auth/server";
 import { revalidatePath } from "next/cache";
 
@@ -33,155 +33,110 @@ export async function editQuiz(
     return { alertType: 0, message: error.message };
   }
 
-  const dbQuiz = await db.query.quizzesTable.findFirst({
-    where: eq(quizzesTable.id, id),
-    with: {
-      questions: {
-        with: { answers: true },
-      },
-    },
-  });
-
-  if (!dbQuiz) {
-    return {
-      alertType: 0,
-      message: "An error occurred while editing quiz, please try again...",
-    };
-  }
-
-  if (dbQuiz.userId !== data.user?.id) {
-    return {
-      alertType: 0,
-      message: "You are not allowed to edit this quiz",
-    };
-  }
-
   try {
     await db.transaction(async (tx) => {
+      const dbQuiz = await tx.query.quizzesTable.findFirst({
+        where: eq(quizzesTable.id, id),
+        with: { questions: { with: { answers: true } } },
+      });
+
+      if (!dbQuiz) throw new Error("The specified quiz does not exist.");
+      if (dbQuiz.userId !== data.user?.id)
+        throw new Error("You are not allowed to edit this quiz.");
+
       await tx
         .update(quizzesTable)
         .set({ name, description, privacy })
         .where(eq(quizzesTable.id, dbQuiz.id));
 
-      for (const question of dbQuiz.questions) {
-        const matchingQuestion = questions.find((q) => q.id === question.id);
+      const submittedQuestionIds = new Set(questions.map((q) => q.id));
 
-        if (!matchingQuestion) {
-          const deletedQuestionsCount = (
-            await tx
-              .delete(questionsTable)
-              .where(eq(questionsTable.id, question.id))
-              .returning()
-          ).length;
-
-          if (deletedQuestionsCount < 1) {
-            tx.rollback();
-            return;
-          }
-        } else {
-          for (const answer of question.answers) {
-            const matchingAnswer = matchingQuestion.answers.find(
-              (a) => a.id === answer.id,
-            );
-
-            if (!matchingAnswer) {
-              const deletedAnswersCount = (
-                await tx
-                  .delete(answersTable)
-                  .where(eq(answersTable.id, answer.id))
-                  .returning()
-              ).length;
-
-              if (deletedAnswersCount < 1) {
-                tx.rollback();
-                return;
-              }
-            }
-          }
+      // Delete missing questions
+      for (const oldQuestion of dbQuiz.questions) {
+        if (!submittedQuestionIds.has(oldQuestion.id)) {
+          await tx
+            .delete(questionsTable)
+            .where(eq(questionsTable.id, oldQuestion.id));
         }
       }
 
-      for (const question of questions) {
-        const { text, type, explanation, hint } = question;
-        const oldQuestion = dbQuiz.questions.find((q) => q.id === question.id);
-        let questionId;
+      for (const submittedQuestion of questions) {
+        const oldQuestion = dbQuiz.questions.find(
+          (q) => q.id === submittedQuestion.id,
+        );
+        let questionId = submittedQuestion.id;
 
+        // Edit old question
         if (oldQuestion) {
           await tx
             .update(questionsTable)
-            .set({ text, type, explanation, hint })
+            .set({
+              text: submittedQuestion.text,
+              type: submittedQuestion.type,
+              explanation: submittedQuestion.explanation,
+              hint: submittedQuestion.hint,
+            })
             .where(eq(questionsTable.id, oldQuestion.id));
 
-          questionId = oldQuestion.id;
-        } else {
-          const insertedQuestions = await tx
-            .insert(questionsTable)
-            .values({
-              text,
-              type,
-              explanation,
-              hint,
-              quizId: dbQuiz.id,
-            })
-            .returning();
-
-          if (insertedQuestions.length < 1) {
-            tx.rollback();
-            return;
-          }
-
-          questionId = insertedQuestions[0].id;
-        }
-
-        if (oldQuestion && oldQuestion.type !== question.type) {
-          const deletedCount = (
+          if (oldQuestion.type !== submittedQuestion.type) {
             await tx
               .delete(answersTable)
-              .where(eq(answersTable.questionId, oldQuestion.id))
-              .returning()
-          ).length;
+              .where(eq(answersTable.questionId, oldQuestion.id));
+          }
+          // Insert submitted question
+        } else {
+          const [insertedQuestion] = await tx
+            .insert(questionsTable)
+            .values({ ...submittedQuestion, quizId: id })
+            .returning({ id: questionsTable.id });
 
-          if (deletedCount < 1) {
-            tx.rollback();
+          questionId = insertedQuestion.id;
+        }
+
+        const submittedAnswerIds = new Set(
+          submittedQuestion.answers.map((a) => a.id),
+        );
+        const oldAnswers = oldQuestion?.answers ?? [];
+
+        // Delete missing answers
+        for (const oldAnswer of oldAnswers) {
+          if (!submittedAnswerIds.has(oldAnswer.id)) {
+            await tx
+              .delete(answersTable)
+              .where(eq(answersTable.id, oldAnswer.id));
           }
         }
 
-        for (const answer of question.answers) {
-          const { text, isCorrect } = answer;
-          const oldAnswer = oldQuestion?.answers.find(
-            (a) => a.id === answer.id,
-          );
+        for (const submittedAnswer of submittedQuestion.answers) {
+          const oldAnswer = oldAnswers.find((a) => a.id === submittedAnswer.id);
 
-          if (oldAnswer && oldQuestion && oldQuestion.type === question.type) {
+          // Update old answer if it exists and question type is the same
+          if (oldAnswer && oldQuestion?.type === submittedQuestion.type) {
             await tx
               .update(answersTable)
-              .set({ text, isCorrect })
+              .set({
+                text: submittedAnswer.text,
+                isCorrect: submittedAnswer.isCorrect,
+              })
               .where(eq(answersTable.id, oldAnswer.id));
+            // Insert new submitted answer
           } else {
-            const insertedAnswersCount = (
-              await tx
-                .insert(answersTable)
-                .values({ text, isCorrect, questionId: questionId })
-                .returning()
-            ).length;
-
-            if (insertedAnswersCount < 1) {
-              tx.rollback();
-              return;
-            }
+            await tx
+              .insert(answersTable)
+              .values({ ...submittedAnswer, questionId });
           }
         }
       }
     });
-  } catch (error) {
-    if (error instanceof DrizzleError) {
+  } catch (e) {
+    if (e instanceof Error) {
       return {
         alertType: 0,
-        message: "An error occurred while editing quiz, please try again...",
+        message: e.message,
       };
     }
   }
 
   revalidatePath("/quizzes");
-  return { alertType: 1, message: "Successfully updated quiz" };
+  return { alertType: 1, message: "Successfully updated quiz." };
 }

@@ -1,0 +1,7 @@
+.ql-button:disabled .ql-google-icon__path {
+  fill: var(--secondary-300);
+
+  transition-property: fill;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+}

@@ -13,7 +13,7 @@ import { Metadata } from "next";
  * Root page metadata
  */
 export const metadata: Metadata = {
-  title: "Quizlog: Home",
+  title: "Home | QUIZLOG",
 };
 
 /**

@@ -5,6 +5,7 @@ import { IconCheck } from "@tabler/icons-react";
 import { ZodType } from "zod";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
+import "./styles.css";
 
 /**
  * Props for {@link CheckboxButton}
@@ -50,7 +51,7 @@ export default function CheckboxButton<T>(props: CheckboxButtonProps<T>) {
         {props.useChecked === true ? (
           <input
             ref={ref}
-            className={"ql-checkbox__input peer"}
+            className={"ql-checkbox__input"}
             name={props.name}
             value={props.value}
             disabled={props.disabled}
@@ -61,7 +62,7 @@ export default function CheckboxButton<T>(props: CheckboxButtonProps<T>) {
         ) : (
           <input
             ref={ref}
-            className={"ql-checkbox__input peer"}
+            className={"ql-checkbox__input"}
             name={props.name}
             value={props.value}
             disabled={props.disabled}
@@ -70,19 +71,12 @@ export default function CheckboxButton<T>(props: CheckboxButtonProps<T>) {
             onChange={props.handleChange}
           />
         )}
-
         <div
-          className={`ql-checkbox__border peer-checked:outline-primary-500 ${
-            props.wasFocused &&
-            message &&
-            "peer-invalid:outline-error-500 peer-invalid:bg-error-700 was-focused"
+          className={`ql-checkbox__border ${
+            props.wasFocused && message && "ql-checkbox__border--invalid"
           }`}
         ></div>
-        <div
-          className={
-            "ql-checkbox__checkmark opacity-0 peer-checked:opacity-100"
-          }
-        >
+        <div className={"ql-checkbox__checkmark"}>
           <IconCheck stroke={4} className={"ql-checkbox__icon"} />
         </div>
         {props.children}

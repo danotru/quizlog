@@ -1,0 +1,44 @@
+.ql-auth-form-container__logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  margin-block: 2rem;
+}
+
+.ql-auth-form-container__logo {
+  width: 20rem;
+  height: 7rem;
+}
+
+@media (width < 48rem) {
+  .ql-auth-form-container__logo {
+    width: 16rem;
+    height: 5rem;
+  }
+}
+
+.ql-auth-form-container__separator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  color: var(--secondary-300);
+}
+
+.ql-auth-form-container__separator::before,
+.ql-auth-form-container__separator::after {
+  content: "";
+
+  background: var(--secondary-300);
+
+  flex-grow: 1;
+
+  height: 2px;
+}
+
+.ql-auth-form-container__link {
+  display: flex;
+  justify-content: center;
+}

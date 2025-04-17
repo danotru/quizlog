@@ -1,0 +1,45 @@
+.ql-textarea__textarea {
+  resize: none;
+
+  z-index: 10;
+
+  padding: 0.75rem;
+}
+
+.ql-textarea__textarea::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.ql-textarea__textarea::-webkit-scrollbar-track {
+  background: var(--secondary-300);
+
+  outline: 2px solid var(--secondary-300);
+
+  border-start-end-radius: 0.25rem;
+  border-end-end-radius: 0.25rem;
+
+  transition-property: background-color, outline-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+}
+
+.ql-textarea__textarea:focus::-webkit-scrollbar-track {
+  background: var(--accent-500);
+
+  outline-color: var(--accent-500);
+}
+
+.ql-textarea__textarea::-webkit-scrollbar-thumb {
+  background: var(--secondary-400);
+
+  border-radius: 9999px;
+
+  transition-property: background-color;
+  transition-timing-function: ease-in-out;
+  transition-duration: 150ms;
+}
+
+.ql-textarea__textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-500);
+}

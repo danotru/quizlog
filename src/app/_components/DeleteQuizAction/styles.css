@@ -1,23 +1,47 @@
 .ql-delete-quiz {
-  @apply flex items-center justify-center
-  fixed z-30
-  w-screen h-screen
-  p-6
-  bg-secondary-700 bg-opacity-75;
+  position: fixed;
+  z-index: 30;
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
 }
 
 .ql-delete-quiz__modal {
-  @apply max-w-3xl
-  flex flex-col gap-5
-  bg-secondary-500
-  border-2 border-secondary-400
-    p-6 rounded-3xl;
+  max-width: 48rem;
+}
+
+@media (width < 48rem) {
+  .ql-delete-quiz__modal {
+    width: 100%;
+    max-width: unset;
+  }
 }
 
 .ql-delete-quiz__headings {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .ql-delete-quiz__actions {
-  @apply flex justify-between gap-4;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (width < 48rem) {
+  .ql-delete-quiz__actions {
+    gap: 0.75rem;
+  }
+}
+
+.ql-delete-quiz__action {
+  flex-grow: 1;
 }

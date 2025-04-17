@@ -1,0 +1,7 @@
+{
+  "name": "Quizlog",
+  "short_name": "Quizlog",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/"
+}

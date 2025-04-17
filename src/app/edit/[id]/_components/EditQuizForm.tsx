@@ -4,7 +4,12 @@ import { useActionState, useState } from "react";
 import { z } from "zod";
 import { quizFormSchema } from "@/app/create/schemas";
 import QuizForm from "@/app/_components/QuizForm";
-import { IconEdit, IconInputSpark, IconTrashX } from "@tabler/icons-react";
+import {
+  IconEdit,
+  IconInputSpark,
+  IconLoader2,
+  IconTrashX,
+} from "@tabler/icons-react";
 import { editQuiz } from "@/app/edit/[id]/actions";
 import AlertBox from "@/app/_components/AlertBox";
 import Link from "next/link";
@@ -55,12 +60,21 @@ export default function EditQuizForm(props: EditQuizFormProps) {
           <button
             type={"submit"}
             className={"ql-button ql-button--accent grow"}
+            disabled={isPending}
           >
-            <IconEdit className={"ql-button__icon"} />
+            {isPending ? (
+              <IconLoader2 className={"ql-button__icon animate-spin"} />
+            ) : (
+              <IconEdit className={"ql-button__icon"} />
+            )}
             Edit quiz
           </button>
           <DeleteQuizAction quizId={props.quiz.id} quizName={props.quiz.name}>
-            <button type={"button"} className={"ql-button ql-button--error"}>
+            <button
+              type={"button"}
+              className={"ql-button ql-button--error"}
+              disabled={isPending}
+            >
               <IconTrashX className={"ql-button__icon"} />
               Delete quiz
             </button>

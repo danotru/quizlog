@@ -30,7 +30,12 @@ export default function DeleteQuizAction(props: DeleteQuizActionProps) {
         createPortal(
           <>
             <div className={"ql-delete-quiz"}>
-              <form className={"ql-delete-quiz__modal"} action={formAction}>
+              <form
+                className={
+                  "ql-delete-quiz__modal ql-container ql-container--content"
+                }
+                action={formAction}
+              >
                 <input type={"hidden"} name={"quizId"} value={props.quizId} />
                 <hgroup className={"ql-delete-quiz__headings"}>
                   <h1>Are you sure?</h1>
@@ -42,13 +47,19 @@ export default function DeleteQuizAction(props: DeleteQuizActionProps) {
                   <AlertBox type={AlertType.error}>{state.message}</AlertBox>
                 )}
                 <div className={"ql-delete-quiz__actions"}>
-                  <button className={"ql-button ql-button--error grow"}>
+                  <button
+                    className={
+                      "ql-button ql-button--error ql-delete-quiz__action"
+                    }
+                  >
                     <IconTrashX className={"ql-button__icon"} />
                     Delete quiz
                   </button>
                   <button
                     type={"button"}
-                    className={"ql-button ql-button--secondary grow"}
+                    className={
+                      "ql-button ql-button--secondary ql-delete-quiz__action"
+                    }
                     onClick={() => setShowModal(false)}
                   >
                     <IconCancel className={"ql-button__icon"} />

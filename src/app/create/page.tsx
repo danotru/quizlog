@@ -5,7 +5,7 @@ import { Metadata } from "next";
  * Root page metadata
  */
 export const metadata: Metadata = {
-  title: "Quizlog: Create",
+  title: "Create | QUIZLOG",
 };
 
 /**

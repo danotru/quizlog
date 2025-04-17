@@ -66,7 +66,7 @@ export default function QuizFlashcardsPage() {
             style={{
               transform: `
               translateX(${(index - selectedIndex) * 100}%) 
-              scale(calc(1 - ${Math.abs(index - selectedIndex) / 10})) 
+              scale(max(0, calc(1 - ${Math.abs(index - selectedIndex) / 10}))) 
               rotateY(${(index - selectedIndex) * 10}deg)`,
             }}
             onClick={() => {

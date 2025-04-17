@@ -2,6 +2,7 @@
 
 import { ChangeEvent, ReactNode, useRef } from "react";
 import Field, { RequiredFieldProps } from "@/app/_components/Field";
+import "./styles.css";
 
 /**
  * Props for {@link FileField}
@@ -26,13 +27,15 @@ export default function FileField<T>(props: FileFieldProps<T>) {
   return (
     <>
       <Field {...props}>
-        <label htmlFor={props.id} className={`ql-file-input cursor-pointer`}>
-          <button className={"ql-file-input__button"}>Select File</button>
-          <div className={"grow"}>
+        <label htmlFor={props.id} className={`ql-input ql-file-field`}>
+          <button className={"ql-file-field__button"}>Select File</button>
+          <div className={"ql-file-field__placeholder-container"}>
             {props.value[0] ? (
               props.value[0]?.name
             ) : (
-              <span className={"text-secondary-300"}>{props.placeholder}</span>
+              <span className={"ql-file-field__placeholder"}>
+                {props.placeholder}
+              </span>
             )}
           </div>
           {props.inputAppendNode}
@@ -42,7 +45,7 @@ export default function FileField<T>(props: FileFieldProps<T>) {
             type={"file"}
             multiple={props.multiple}
             name={props.name}
-            className={"hidden"}
+            className={"ql-file-field__input"}
             disabled={props.disabled}
             required={props.required}
             accept={props.accept}

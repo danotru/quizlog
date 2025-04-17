@@ -1,0 +1,21 @@
+.ql-quiz-form__questions-container,
+.ql-quiz-form__questions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+@media (width < 48rem) {
+  .ql-quiz-form__questions-container,
+  .ql-quiz-form__questions {
+    gap: 1.25rem;
+  }
+}
+
+@media (width >= 48rem) {
+  .ql-quiz-form__questions-container {
+    padding: 2rem;
+    border: 2px solid var(--secondary-500);
+    border-radius: 3rem;
+  }
+}

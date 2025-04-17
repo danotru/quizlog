@@ -17,6 +17,7 @@ interface MultipleAnswerFormProps {
   answers: z.infer<typeof answerFormSchema>[];
   setAnswers: (answers: z.infer<typeof answerFormSchema>[]) => void;
   children?: ReactNode;
+  isPending: boolean;
 }
 
 /**
@@ -42,6 +43,7 @@ export default function MultipleAnswerForm(props: MultipleAnswerFormProps) {
               correctButtonsFocused={correctButtonsFocused}
               setCorrectButtonsFocused={setCorrectButtonsFocused}
               answer={answer}
+              disabled={props.isPending}
               setAnswer={(value) => {
                 const answers = [...props.answers];
                 answers[index] = value;

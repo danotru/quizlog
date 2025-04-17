@@ -40,23 +40,23 @@
 .ql-practice-question__answer {
   @apply flex items-center gap-3
   h-11 p-3
-  outline outline-2 outline-secondary-300 rounded-xl
+  border-2 border-secondary-300 rounded-xl
   cursor-pointer
   transition-all;
 }
 
 .ql-practice-question__answer--correct.ql-practice-question__answer {
   @apply bg-success-700
-  outline outline-2 outline-success-500;
+  border-2 border-success-500;
 }
 
 .ql-practice-question__answer--incorrect.ql-practice-question__answer {
   @apply bg-error-700
-  outline outline-2 outline-error-500;
+  border-2 border-error-500;
 }
 
 .ql-practice-question__answer--missed.ql-practice-question__answer {
-  @apply outline outline-2 outline-primary-500;
+  @apply border-2 border-primary-500;
 }
 
 .ql-practice-question__answer-icon {
@@ -124,10 +124,6 @@
 .ql-practice-question__answer--correct .ql-practice-question__answer-text,
 .ql-practice-question__answer--incorrect .ql-practice-question__answer-text {
   @apply text-primary-300;
-}
-
-.ql-practice-question__highlight {
-  @apply text-success-500;
 }
 
 .ql-practice-question__explanation,

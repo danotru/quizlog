@@ -13,10 +13,10 @@ import "./styles.css";
  * Alert icons
  */
 const icons = {
-  0: <IconAlertOctagonFilled className={"flex-shrink-0"} />,
-  1: <IconCircleCheckFilled className={"flex-shrink-0"} />,
-  2: <IconAlertTriangleFilled className={"flex-shrink-0"} />,
-  3: <IconInfoCircleFilled className={"flex-shrink-0"} />,
+  0: <IconAlertOctagonFilled className={"ql-alert-box__icon"} />,
+  1: <IconCircleCheckFilled className={"ql-alert-box__icon"} />,
+  2: <IconAlertTriangleFilled className={"ql-alert-box__icon"} />,
+  3: <IconInfoCircleFilled className={"ql-alert-box__icon"} />,
 };
 
 export enum AlertType {
@@ -45,7 +45,7 @@ export default function AlertBox(props: AlertBoxProps) {
     <>
       {props.children && (
         <aside
-          className={`${props.className} ql-alert-box bg-${type}-500 border-${type}-400`}
+          className={`${props.className} ql-alert-box ql-alert-box--${type}`}
         >
           {icons[props.type]}
           {props.children}

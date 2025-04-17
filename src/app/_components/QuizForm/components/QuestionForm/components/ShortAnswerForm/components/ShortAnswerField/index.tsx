@@ -11,6 +11,7 @@ import { z } from "zod";
 import useFocused from "@/app/_hooks/useFocused";
 import useValidity from "@/app/_hooks/useValidity";
 import Field from "@/app/_components/Field";
+import "./styles.css";
 
 /**
  * Props for {@link ShortAnswerField}
@@ -19,6 +20,7 @@ interface ShortAnswerFieldProps {
   questionIndex: number;
   answers: z.infer<typeof answerFormSchema>[];
   setAnswers: (answers: z.infer<typeof answerFormSchema>[]) => void;
+  isPending: boolean;
 }
 
 /**
@@ -36,8 +38,8 @@ export default function ShortAnswerField(props: ShortAnswerFieldProps) {
     <>
       <Field errorMessage={wasFocused ? message : undefined}>
         <label
-          className={`ql-multi-chip ${
-            message && wasFocused ? "ql-multi-chip--error" : ""
+          className={`ql-input ql-short-answer-field ${
+            message && wasFocused ? "ql-input--error" : ""
           }`}
         >
           {props.answers.map((answer, index) => (
@@ -80,8 +82,9 @@ export default function ShortAnswerField(props: ShortAnswerFieldProps) {
           <input
             ref={ref}
             placeholder={"Write a short answer keyword, and enter..."}
-            className={"ql-multi-chip__input"}
+            className={"ql-short-answer-field__input ql-input__input"}
             type={"text"}
+            disabled={props.isPending}
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {

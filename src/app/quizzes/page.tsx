@@ -15,7 +15,7 @@ import { Metadata } from "next";
  * Quizzes page metadata
  */
 export const metadata: Metadata = {
-  title: "Quizlog: Quizzes",
+  title: "Quizzes | QUIZLOG",
 };
 
 /**

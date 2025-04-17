@@ -18,7 +18,7 @@ export default async function TitleBar() {
     <>
       <nav
         className={
-          "p-6 border-b-2 border-secondary-500 bg-secondary-600 md:sticky top-0 flex items-center justify-between z-20"
+          "ql-title-bar border-b-2 border-secondary-500 bg-secondary-600 md:sticky top-0 flex items-center justify-between z-20"
         }
       >
         <QuizlogLogo className={"w-16 h-auto shrink-0"} />

@@ -1,7 +1,36 @@
 .ql-alert-box {
-  @apply flex gap-3 items-center
-  font-semibold
-  p-4 border-2
-  rounded-2xl
-  text-secondary-300;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  color: var(--secondary-300);
+
+  font-weight: 600;
+
+  padding: 1.25rem;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2rem;
+}
+
+.ql-alert-box--error {
+  background: var(--error-500);
+  border-color: var(--error-400);
+}
+
+.ql-alert-box--success {
+  background: var(--success-500);
+  border-color: var(--success-400);
+}
+
+.ql-alert-box__icon {
+  flex-shrink: 0;
+}
+
+@media (width < 48rem) {
+  .ql-alert-box {
+    gap: 0.75rem;
+
+    padding: 1rem;
+  }
 }
